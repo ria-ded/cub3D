@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/09/29 10:08:30 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/09/29 23:21:59 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ typedef struct s_data
 	t_player	*player;
 	t_config	*config;
 }				t_data;
+
+// HELPER
 
 #endif

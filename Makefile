@@ -6,7 +6,7 @@
 #    By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/28 20:36:45 by mdziadko          #+#    #+#              #
-#    Updated: 2025/09/29 10:12:55 by mdziadko         ###   ########.fr        #
+#    Updated: 2025/09/29 22:54:16 by mdziadko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ UNAME := $(shell uname)
 
 # Platform-specific MiniLibX path
 ifeq ($(UNAME), Darwin)
-	MLX_DIR		= minilibx-opengl
+	MLX_DIR		= minilibx-mms
 	MLX_LIB		= $(MLX_DIR)/libmlx.dylib
 	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit \
 				-Wl,-rpath,$(CURDIR)
