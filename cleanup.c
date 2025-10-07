@@ -3,14 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/06 14:09:41 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:22:07 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../includes/cub3D.h"
+
+void	del(char *str)
+{
+	if (str)
+		free(str);
+}
+
+void	mapdelone(t_map *map, void (*del)(char *))
+{
+	if (!del)
+		return ;
+	if (map)
+	{
+		(*del)(map->str);
+		free(map);
+	}
+}
+
+void	freemap(t_map **map, void (*del)(char *))
+{
+	t_map	*tmp;
+
+	if (!map || !*map)
+		return ;
+	while (map && *map)
+	{
+		tmp = (*map)->next;
+		mapdelone(*map, del);
+		*map = tmp;
+	}
+	*map = NULL;
+}
 
 void	free_arr(char **arr)
 {
@@ -44,8 +76,9 @@ void	free_data(t_data *g)
 	if (!g)
 		return ;
 	free_config(&g->config);
-	// free_map(&g->map);
-	if (g->mlx && g->img.img)
+	freemap(&g->map, del);
+	free(g->map);
+	/* if (g->mlx && g->img.img)
 	{
 		mlx_destroy_image(g->mlx, g->img.img);
 		g->img.img = NULL;
@@ -55,5 +88,5 @@ void	free_data(t_data *g)
 # ifdef __linux__
 	mlx_destroy_display(g->mlx);
 	free (g->mlx);
-# endif
+# endif */
 }

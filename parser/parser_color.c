@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:23:39 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 09:43:10 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/07 17:08:04 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../includes/cub3D.h"
 
 int	create_trgb(int t, int r, int g, int b)
 {

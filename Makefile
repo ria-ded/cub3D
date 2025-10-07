@@ -6,7 +6,7 @@
 #    By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/28 20:36:45 by mdziadko          #+#    #+#              #
-#    Updated: 2025/10/07 15:42:09 by svolkau          ###   ########.fr        #
+#    Updated: 2025/10/07 18:49:31 by svolkau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,10 @@ LIBS			= $(LIBFT_LIB) $(MLX_LIB)
 # **************************************************************************** #
 
 SRCS		= main.c parser/parser.c parser/parser_tex.c parser/parser_color.c \
-			project.c init.c rotation.c render.c events.c cleanup.c
+			parser/parser_map_add.c parser/parser_map.c parser/parser_map_wall.c \
+			rotation.c render.c events.c cleanup.c project.c init.c
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-HEADERS		= cub3D.h
+HEADERS		= includes/cub3D.h
 
 # **************************************************************************** #
 # 									RULES									   #

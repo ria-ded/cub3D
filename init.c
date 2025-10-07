@@ -6,11 +6,11 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 07:50:51 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 16:41:50 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/07 17:57:56 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../includes/cub3D.h"
 
 int	init_player(t_player *player)
 {
@@ -39,13 +39,13 @@ int	init_data(t_data *g, char *file)
 	if (parse_file(g, file))
 		return (1);
 	init_player(&g->player);
-	// init_map(&g->map);
-	g->mlx = mlx_init();
+	//init_map(&g->map);
+	/* g->mlx = mlx_init();
 	if (!g->mlx)
 		return (perror("Error: mlx init\n"), 1);
 	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, file);
 	g->img.img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	g->img.addr = mlx_get_data_addr(
-			g->img.img, &g->img.bpp, &g->img.line_len, &g->img.endian);
+			g->img.img, &g->img.bpp, &g->img.line_len, &g->img.endian); */
 	return (0);
 }

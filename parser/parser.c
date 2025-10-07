@@ -6,11 +6,11 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 15:04:27 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:48:12 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../includes/cub3D.h"
 
 int	empty_line(char *line)
 {
@@ -85,7 +85,9 @@ int	parse_file(t_data *g, char *file)
 		return (perror("Error: open file "), 1);
 	if (parse_config(g, fd))
 		return (close(fd), free_config(&g->config), 1);
-	// if (parse_map(g, fd))
-	// 	return (close(fd), free_config(&g->config), 1);
+	map_reader(g, fd);
+	check_map_valid_char(g);
+	check_wall_path(g);
+	close(fd);
 	return (0);
 }

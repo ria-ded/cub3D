@@ -6,11 +6,11 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 20:07:15 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 16:44:35 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/07 17:07:48 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../includes/cub3D.h"
 
 int	validate_format(char *file, char *format)
 {

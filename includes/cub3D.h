@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 15:50:47 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:54:25 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ typedef struct s_config
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
+	char	orient;
+	int		x;
+	int		y;
 }			t_player;
 
 typedef struct s_img
@@ -55,17 +56,17 @@ typedef struct s_img
 
 typedef struct s_map
 {
-	char	**grid;
-	int		width;
-	int		height;
-}			t_map;
+	char			*str;
+	int				index;
+	struct s_map	*next;	
+}					t_map;
 
 typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_map		map;
+	t_map		*map;
 	t_player	player;
 	t_config	config;
 }				t_data;
@@ -79,6 +80,7 @@ int		init_data(t_data *g, char *file);
 int		parse_line(t_data *g, char *line);
 int		parse_config(t_data *g, int fd);
 int		parse_file(t_data *g, char *file);
+int		empty_line(char *line);
 
 // PARSER TEX
 int		validate_format(char *file, char *format);
@@ -90,6 +92,19 @@ int		extract_rgb_val(char *val);
 int		create_trgb(int t, int r, int g, int b);
 
 // MAP_PARSER
+
+void	del(char *str);
+void	map_reader(t_data *cb3d, int fd);
+void	mapadd_back(t_map **map, t_map *mapnew);
+t_map	*mapnew(char *str, int index);
+void	printmap(t_map *map);
+void	freemap(t_map **map, void (*del)(char *));
+void	check_map_valid_char(t_data *cb3d);
+void	check_player_pos(t_data *cb3d, t_map *head, t_map *priv, int pos);
+t_map	*maplast(t_map *map);
+void	check_wall_path(t_data *cb3d);
+void	error_printer(char *msg, t_data *cb3d);
+void	printgridmap(char **map);
 
 // ENENTS
 
