@@ -6,7 +6,7 @@
 #    By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/15 20:58:49 by mdziadko          #+#    #+#              #
-#    Updated: 2025/06/08 16:32:46 by mdziadko         ###   ########.fr        #
+#    Updated: 2025/10/03 10:52:53 by mdziadko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS		= ft_isdigit.c ft_memset.c ft_strdup.c ft_strncmp.c ft_atoi.c \
 			ft_isspace.c ft_lstnew.c ft_lstadd_front.c \
 			ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 			ft_lstclear.c ft_lstiter.c ft_lstmap.c get_next_line.c \
-			ft_strcmp.c ft_strndup.c
+			ft_strcmp.c ft_strndup.c ft_isnum.c
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 # **************************************************************************** #

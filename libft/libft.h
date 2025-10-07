@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:27:55 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/06/08 16:33:35 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:52:26 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	*ft_calloc(size_t count, size_t size);
 
 // STRING MANAGEMENT
 
+int		ft_isnum(char *str);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);

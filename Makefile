@@ -6,7 +6,7 @@
 #    By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/28 20:36:45 by mdziadko          #+#    #+#              #
-#    Updated: 2025/09/29 22:54:16 by mdziadko         ###   ########.fr        #
+#    Updated: 2025/10/07 11:44:55 by mdziadko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,8 @@ LIBS			= $(LIBFT_LIB) $(MLX_LIB)
 # 									FILES									   #
 # **************************************************************************** #
 
-SRCS		= main.c init.c parse.c map_parse.c project.c rotation.c \
-			render.c events.c cleanup.c gnl.c
+SRCS		= main.c init.c parser.c parser_tex.c parser_color.c project.c \
+			rotation.c render.c events.c cleanup.c
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 HEADERS		= cub3D.h
 
