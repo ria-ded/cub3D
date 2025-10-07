@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 08:29:01 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/07 15:04:27 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	empty_line(char *line)
+{
+	while (*line)
+	{
+		if (ft_isspace(*line))
+			line++;
+		else
+			return (0);
+	}
+	return (1);
+}
 
 int	parse_line(t_data *g, char *line)
 {
@@ -20,7 +32,7 @@ int	parse_line(t_data *g, char *line)
 	trimmed = ft_strtrim(line, " ");
 	if (!trimmed)
 		return (perror("Error: strtrim\n"), 1);
-	if (trimmed[0] == '\0')
+	if (empty_line(trimmed))
 		return (free(trimmed), -1);
 	exit_code = 1;
 	if (!ft_strncmp(trimmed, "NO ", 3))
@@ -36,7 +48,7 @@ int	parse_line(t_data *g, char *line)
 	else if (!ft_strncmp(trimmed, "F ", 2))
 		exit_code = set_color(&g->config, FLOOR, trimmed + 1);
 	else
-		exit_code = (printf("Error: unknown directive\n"), 1);
+		exit_code = (printf("Error: unknown directive or no directive\n"), 1);
 	free(trimmed);
 	return (exit_code);
 }
@@ -70,7 +82,7 @@ int	parse_file(t_data *g, char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (perror("Error: open file\n"), 1);
+		return (perror("Error: open file "), 1);
 	if (parse_config(g, fd))
 		return (close(fd), free_config(&g->config), 1);
 	// if (parse_map(g, fd))

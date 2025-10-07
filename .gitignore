@@ -6,6 +6,7 @@
 !*.h
 !Makefile
 !.gitignore
+!*.cub
 
 # Allow directories so Git can find allowed files inside them
 !*/

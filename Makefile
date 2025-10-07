@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+         #
+#    By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/28 20:36:45 by mdziadko          #+#    #+#              #
-#    Updated: 2025/10/07 11:44:55 by mdziadko         ###   ########.fr        #
+#    Updated: 2025/10/07 15:42:09 by svolkau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,8 @@ LIBS			= $(LIBFT_LIB) $(MLX_LIB)
 # 									FILES									   #
 # **************************************************************************** #
 
-SRCS		= main.c init.c parser.c parser_tex.c parser_color.c project.c \
-			rotation.c render.c events.c cleanup.c
+SRCS		= main.c parser/parser.c parser/parser_tex.c parser/parser_color.c \
+			project.c init.c rotation.c render.c events.c cleanup.c
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 HEADERS		= cub3D.h
 
@@ -70,7 +70,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(MLX_FLAGS) -lm -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c $(HEADERS)
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
