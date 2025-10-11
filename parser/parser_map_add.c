@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map_add.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:17:57 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/07 18:22:01 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/08 21:54:02 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+void	mapdelone(t_map *map, void (*del)(char *))
+{
+	if (!del)
+		return ;
+	if (map)
+	{
+		(*del)(map->str);
+		free(map);
+	}
+}
 
 t_map	*maplast(t_map *map)
 {
@@ -47,42 +58,4 @@ t_map	*mapnew(char *str, int index)
 	mapnew->index = index;
 	mapnew->next = NULL;
 	return (mapnew);
-}
-
-void	freegridmap(char **grid)
-{
-	char	**temp;
-
-	temp = grid;
-	while (*temp)
-	{
-		free(*temp);
-		temp++;
-	}
-	free(grid);
-}
-
-void	printmap(t_map *map)
-{
-	while (map)
-	{
-		printf("%s", map->str);
-		map = map->next;
-	}
-	printf("\n");
-}
-
-void	printgridmap(char **map)
-{
-	int	j;
-	int	i;
-
-	i = -1;
-	while (map[++i])
-	{
-		j = -1;
-		while (map[i][++j])
-			printf("%c", map[i][j]);
-	}
-	printf("\n");
 }

@@ -1,6 +1,6 @@
-SO  ./textures/test_south.ppm
-WE  ./textures/test_west.ppm
-EA  ./textures/test_east.ppm
+NO ./textures/path_north.xpm
+WE ./textures/path_west.xpm
+EA ./textures/path_east.xpm
 
 F 20,20,20
 C 200,200,200

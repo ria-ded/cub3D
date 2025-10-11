@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 18:48:12 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/10 18:37:13 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	parse_line(t_data *g, char *line)
 
 	trimmed = ft_strtrim(line, " ");
 	if (!trimmed)
-		return (perror("Error: strtrim\n"), 1);
+		return (printf("Error\nStrtrim\n"), 1);
 	if (empty_line(trimmed))
 		return (free(trimmed), -1);
 	exit_code = 1;
@@ -48,7 +48,7 @@ int	parse_line(t_data *g, char *line)
 	else if (!ft_strncmp(trimmed, "F ", 2))
 		exit_code = set_color(&g->config, FLOOR, trimmed + 1);
 	else
-		exit_code = (printf("Error: unknown directive or no directive\n"), 1);
+		exit_code = (printf("Error\nUnknown directive or no directive\n"), 1);
 	free(trimmed);
 	return (exit_code);
 }
@@ -64,7 +64,7 @@ int	parse_config(t_data *g, int fd)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return (printf("Error: incomplete config\n"), 1);
+			return (printf("Error\nIncomplete config\n"), 1);
 		exit_code = parse_line(g, line);
 		free(line);
 		if (exit_code == -1)
@@ -76,15 +76,16 @@ int	parse_config(t_data *g, int fd)
 	return (0);
 }
 
-int	parse_file(t_data *g, char *file)
+int	parse_file(t_data *g)
 {
 	int	fd;
 
-	fd = open(file, O_RDONLY);
+	fd = open(g->file, O_RDONLY);
 	if (fd == -1)
-		return (perror("Error: open file "), 1);
+		return (printf("Error\nOpen file\n"), free_data(g), 1);
 	if (parse_config(g, fd))
-		return (close(fd), free_config(&g->config), 1);
+		return (close(fd), free_data(g), 1);
+	printf_config(&g->config);
 	map_reader(g, fd);
 	check_map_valid_char(g);
 	check_wall_path(g);

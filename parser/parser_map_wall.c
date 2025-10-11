@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map_wall.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:45:48 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/07 18:56:54 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/10 08:19:35 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	mapsize(t_map *map)
+int	map_size(t_map *map)
 {
 	int	i;
 
@@ -80,7 +80,7 @@ int	validate_path(char **gridmap, t_data *cb3d)
 	int		rows;
 
 	y = -1;
-	rows = mapsize(cb3d->map);
+	rows = map_size(cb3d->map);
 	while (++y < rows)
 	{
 		x = -1;
@@ -104,8 +104,8 @@ void	check_wall_path(t_data *cb3d)
 	if (!validate_path(gridmap, cb3d))
 	{
 		free_arr(gridmap);
-		error_printer("Map is not correct", cb3d);
+		print_err("Map is not correct", cb3d);
 	}
-	printgridmap(gridmap);
+	print_grid(gridmap);
 	free_arr(gridmap);
 }

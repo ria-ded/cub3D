@@ -1,0 +1,21 @@
+NO  ./textures/path_north.xpm
+SO  ./textures/path_south.ppm
+WE  ./textures/path_west.ppm
+EA  ./textures/path_east.ppm
+
+F 20,20,20
+C 200,200,200
+
+11111
+10001
+10S01
+10001
+10001
+10001
+11001
+10001
+10001
+10001
+10001
+10001
+11111
