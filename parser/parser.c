@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/10 18:37:13 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/12 10:43:06 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ int	parse_config(t_data *g, int fd)
 	return (0);
 }
 
+void	parse_map(t_data *g, int fd)
+{
+	map_reader(g, fd);
+	check_map_valid_char(g);
+	check_wall_path(g);
+}
+
 int	parse_file(t_data *g)
 {
 	int	fd;
@@ -86,9 +93,8 @@ int	parse_file(t_data *g)
 	if (parse_config(g, fd))
 		return (close(fd), free_data(g), 1);
 	printf_config(&g->config);
-	map_reader(g, fd);
-	check_map_valid_char(g);
-	check_wall_path(g);
+	parse_map(g, fd);
+	print_map(g->map);
 	close(fd);
 	return (0);
 }

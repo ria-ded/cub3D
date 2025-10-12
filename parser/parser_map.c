@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:05:01 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/11 11:58:39 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/12 11:42:43 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,29 @@
 
 void	map_reader(t_data *cb3d, int fd)
 {
-	char	*line_of_map;
+	char	*line;
 	int		i;
-	int		flag;
+	int		map_ended;
 
-	i = -1;
-	flag = 0;
-	line_of_map = get_next_line(fd);
-	if (!line_of_map)
-		print_err("Map is empty", cb3d);
-	while (line_of_map)
+	i = 0;
+	map_ended = 0;
+	while (1)
 	{
-		if (empty_line(line_of_map) && i != -1)
-			flag = 1;
-		if (!empty_line(line_of_map) && flag == 0)
-			mapadd_back(&cb3d->map, mapnew(ft_strdup(line_of_map), ++i));
-		else if (!empty_line(line_of_map) && flag == 1)
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (empty_line(line) && i)
+			map_ended = 1;
+		if (!empty_line(line) && !map_ended)
+			mapadd_back(&cb3d->map, mapnew(ft_strtrim(line, "\n"), i++));
+		else if (!empty_line(line) && map_ended)
 		{
-			free(line_of_map);
-			print_err("Not correct map, something after map", cb3d);
+			free(line);
+			print_err("Something after map", cb3d);
 		}
-		free(line_of_map);
-		line_of_map = get_next_line(fd);
+		free(line);
 	}
-	if (i == -1)
+	if (!i)
 		print_err("Map is empty", cb3d);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 17:12:54 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/10 18:15:42 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/12 11:42:33 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	print_map(t_map *map)
 {
 	while (map)
 	{
-		printf("%s", map->str);
+		printf("%s\n", map->str);
 		map = map->next;
 	}
-	printf("\n");
+	// printf("\n");
 }
 
 void	print_grid(char **grid)
@@ -59,6 +59,7 @@ void	print_grid(char **grid)
 		j = -1;
 		while (grid[i][++j])
 			printf("%c", grid[i][j]);
+		printf("\n");
 	}
-	printf("\n");
+	// printf("\n");
 }

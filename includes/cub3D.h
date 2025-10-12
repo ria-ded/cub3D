@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/11 11:59:56 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/12 10:43:24 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ int		init_config(t_config *config);
 int		init_data(t_data *g, char *av);
 
 // PARSER
+int		empty_line(char *line);
 int		parse_line(t_data *g, char *line);
 int		parse_config(t_data *g, int fd);
+void	parse_map(t_data *g, int fd);
 int		parse_file(t_data *g);
-int		empty_line(char *line);
 
 // PARSER TEX
 bool	validate_format(char *file, char *format);

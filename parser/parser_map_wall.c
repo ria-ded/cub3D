@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:45:48 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/10 08:19:35 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/12 10:44:03 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,5 @@ void	check_wall_path(t_data *cb3d)
 		free_arr(gridmap);
 		print_err("Map is not correct", cb3d);
 	}
-	print_grid(gridmap);
 	free_arr(gridmap);
 }
