@@ -6,7 +6,7 @@
 #    By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/28 20:36:45 by mdziadko          #+#    #+#              #
-#    Updated: 2025/10/09 23:06:41 by mdziadko         ###   ########.fr        #
+#    Updated: 2025/10/13 11:09:51 by mdziadko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ LIBS			= $(LIBFT_LIB) $(MLX_LIB)
 # **************************************************************************** #
 
 SRCS		= main.c parser/parser.c parser/parser_tex.c parser/parser_color.c \
-			parser/parser_map_add.c parser/parser_map.c parser/parser_map_wall.c \
+			parser/parser_map.c parser/parser_map_utils.c parser/parser_map_wall.c \
 			print.c rotation.c render.c events.c cleanup.c project.c init.c
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 HEADERS		= includes/cub3D.h

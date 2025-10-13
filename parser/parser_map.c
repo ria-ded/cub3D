@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:05:01 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/12 11:42:43 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/13 08:56:26 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	map_reader(t_data *cb3d, int fd)
 			break ;
 		if (empty_line(line) && i)
 			map_ended = 1;
-		if (!empty_line(line) && !map_ended)
-			mapadd_back(&cb3d->map, mapnew(ft_strtrim(line, "\n"), i++));
+		if (!empty_line(line) && !map_ended
+			&& map_add_back(&cb3d->map, map_new(ft_strtrim(line, "\n"), i++)))
+			print_err("Adding to map", cb3d);
 		else if (!empty_line(line) && map_ended)
 		{
 			free(line);
@@ -42,13 +43,19 @@ void	map_reader(t_data *cb3d, int fd)
 
 int	check_pos(t_map *map, t_map *priv, int pos, char *set)
 {
-	if (pos > 0 && (!map->str[pos - 1] || !ft_strchr(set, map->str[pos - 1])))
+	if (pos <= 0
+		|| !map->str[pos - 1]
+		|| !ft_strchr(set, map->str[pos - 1]))
 		return (0);
-	if (!map->str[pos + 1] || !ft_strchr(set, map->str[pos + 1]))
+	if (!map->str[pos + 1]
+		|| !ft_strchr(set, map->str[pos + 1]))
 		return (0);
-	if (!priv || !ft_strchr(set, priv->str[pos]))
+	if (!priv
+		|| pos >= (int)ft_strlen(priv->str)
+		|| !ft_strchr(set, priv->str[pos]))
 		return (0);
-	if (!map->next || !map->next->str[pos]
+	if (!map->next
+		|| pos >= (int)ft_strlen(map->next->str)
 		|| !ft_strchr(set, map->next->str[pos]))
 		return (0);
 	return (1);
@@ -63,7 +70,7 @@ void	set_player_pos(t_data *cb3d, t_map *head, t_map *priv, int pos)
 	cb3d->player.x = pos;
 	cb3d->player.y = head->index;
 	if (!check_pos(head, priv, pos, "10"))
-		print_err("Not correct player start position", cb3d);
+		print_err("Wrong player start position", cb3d);
 }
 
 void	check_map_valid_char(t_data *cb3d)
@@ -80,7 +87,7 @@ void	check_map_valid_char(t_data *cb3d)
 		while (head->str[++i])
 		{
 			if (!ft_strchr("EWNS10", head->str[i]) && !ft_isspace(head->str[i]))
-				print_err("Not correct character in map", cb3d);
+				print_err("Wrong character in map", cb3d);
 			if (head->str[i] == ' ')
 				head->str[i] = '2';
 			if (head->str[i] == '0' && !check_pos(head, priv, i, "EWNS10"))
@@ -92,7 +99,7 @@ void	check_map_valid_char(t_data *cb3d)
 		head = head->next;
 	}
 	if (!cb3d->player.player_found)
-		print_err("No player start position", cb3d);
+		print_err("Player not found", cb3d);
 }
 
 /*

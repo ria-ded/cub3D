@@ -6,41 +6,32 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:45:48 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/12 10:44:03 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:07:11 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	map_size(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (map)
-	{
-		map = map->next;
-		i++;
-	}
-	return (i);
-}
-
 char	**map_to_arr(t_map *map)
 {
 	char	**gr;
 	t_map	*temp;
-	int		j;
+	int		i;
 
-	j = 0;
+	gr = malloc(sizeof(char *) * (map_size(map) + 1));
+	if (!gr)
+		return (NULL);
 	temp = map;
-	gr = malloc(sizeof(char *) * (maplast(map)->index + 2));
+	i = 0;
 	while (temp)
 	{
-		gr[j] = ft_strdup(temp->str);
-		j++;
+		gr[i] = ft_strdup(temp->str);
+		if (!gr[i])
+			return (free_arr(gr), NULL);
+		i++;
 		temp = temp->next;
 	}
-	gr[j] = NULL;
+	gr[i] = NULL;
 	return (gr);
 }
 
@@ -73,7 +64,7 @@ int	check_path(char **gr, int y, int x, int rows)
 	return (c);
 }
 
-int	validate_path(char **gridmap, t_data *cb3d)
+int	validate_path(char **gr, t_data *cb3d)
 {
 	int		y;
 	int		x;
@@ -84,11 +75,11 @@ int	validate_path(char **gridmap, t_data *cb3d)
 	while (++y < rows)
 	{
 		x = -1;
-		while (++x < (int)ft_strlen(gridmap[y]))
+		while (++x < (int)ft_strlen(gr[y]))
 		{
-			if (gridmap[y][x] == '1')
+			if (gr[y][x] == '1')
 			{
-				if (!check_path(gridmap, y, x, rows))
+				if (!check_path(gr, y, x, rows))
 					return (0);
 			}
 		}
@@ -98,13 +89,15 @@ int	validate_path(char **gridmap, t_data *cb3d)
 
 void	check_wall_path(t_data *cb3d)
 {
-	char	**gridmap;
+	char	**gr;
 
-	gridmap = map_to_arr(cb3d->map);
-	if (!validate_path(gridmap, cb3d))
+	gr = map_to_arr(cb3d->map);
+	if (!gr)
+		print_err("Malloc", cb3d);
+	if (!validate_path(gr, cb3d))
 	{
-		free_arr(gridmap);
+		free_arr(gr);
 		print_err("Map is not correct", cb3d);
 	}
-	free_arr(gridmap);
+	free_arr(gr);
 }

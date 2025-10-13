@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/12 10:43:24 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:09:28 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		parse_config(t_data *g, int fd);
 void	parse_map(t_data *g, int fd);
 int		parse_file(t_data *g);
 
-// PARSER TEX
+// PARSER_TEX
 bool	validate_format(char *file, char *format);
 int		set_texture(t_config *config, int dir, char *val);
 
@@ -101,23 +101,23 @@ void	set_player_pos(t_data *cb3d, t_map *head, t_map *priv, int pos);
 void	check_map_valid_char(t_data *cb3d);
 
 // PARSER_MAP_WALL
-int		map_size(t_map *map);
 char	**map_to_arr(t_map *map);
 int		check_path(char **gr, int y, int x, int rows);
-int		validate_path(char **gridmap, t_data *cb3d);
+int		validate_path(char **gr, t_data *cb3d);
 void	check_wall_path(t_data *cb3d);
 
-// PARSER_MAP_ADD
-t_map	*maplast(t_map *map);
-void	mapadd_back(t_map **map, t_map *mapnew);
-t_map	*mapnew(char *str, int index);
-void	mapdelone(t_map *map, void (*del)(char *));
+// PARSER_MAP_UTILS
+int		map_size(t_map *map);
+t_map	*map_last(t_map *map);
+int		map_add_back(t_map **map, t_map *mapnew);
+t_map	*map_new(char *str, int index);
+void	map_delone(t_map *map, void (*del)(char *));
 
 // PRINT
 void	print_err(char *msg, t_data *cb3d);
 void	printf_config(t_config *config);
 void	print_map(t_map *map);
-void	print_grid(char **grid);
+void	print_grid(char **gr);
 
 // ENENTS
 

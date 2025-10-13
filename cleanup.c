@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/10 22:22:42 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:00:35 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_map(t_map **map, void (*del)(char *))
 	while (map && *map)
 	{
 		tmp = (*map)->next;
-		mapdelone(*map, del);
+		map_delone(*map, del);
 		*map = tmp;
 	}
 	*map = NULL;
@@ -75,11 +75,13 @@ void	free_data(t_data *g)
 	}
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
+# ifdef __linux__
+
 	if (g->mlx)
 	{
-	# ifdef __linux__
 		mlx_destroy_display(g->mlx);
 		free (g->mlx);
-	# endif
 	}
+
+# endif
 }
