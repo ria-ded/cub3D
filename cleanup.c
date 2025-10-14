@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 18:22:07 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/13 11:00:35 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,7 @@ void	del(char *str)
 		free(str);
 }
 
-void	mapdelone(t_map *map, void (*del)(char *))
-{
-	if (!del)
-		return ;
-	if (map)
-	{
-		(*del)(map->str);
-		free(map);
-	}
-}
-
-void	freemap(t_map **map, void (*del)(char *))
+void	free_map(t_map **map, void (*del)(char *))
 {
 	t_map	*tmp;
 
@@ -38,7 +27,7 @@ void	freemap(t_map **map, void (*del)(char *))
 	while (map && *map)
 	{
 		tmp = (*map)->next;
-		mapdelone(*map, del);
+		map_delone(*map, del);
 		*map = tmp;
 	}
 	*map = NULL;
@@ -75,10 +64,11 @@ void	free_data(t_data *g)
 {
 	if (!g)
 		return ;
+	if (g->file)
+		free(g->file);
 	free_config(&g->config);
-	freemap(&g->map, del);
-	free(g->map);
-	/* if (g->mlx && g->img.img)
+	free_map(&g->map, del);
+	if (g->mlx && g->img.img)
 	{
 		mlx_destroy_image(g->mlx, g->img.img);
 		g->img.img = NULL;
@@ -86,7 +76,12 @@ void	free_data(t_data *g)
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
 # ifdef __linux__
-	mlx_destroy_display(g->mlx);
-	free (g->mlx);
-# endif */
+
+	if (g->mlx)
+	{
+		mlx_destroy_display(g->mlx);
+		free (g->mlx);
+	}
+
+# endif
 }

@@ -6,11 +6,12 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:49:57 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 11:58:00 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/10 17:18:32 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 int	ft_isnum(char *str)
 {
 	int	i;

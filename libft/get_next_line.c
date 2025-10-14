@@ -6,13 +6,14 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:41:35 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/09/29 23:21:33 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/10 17:17:44 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	read_and_store(int fd, char **remainder)
+/*
+static int	read_and_store(int fd, char **remainder)
 {
 	char	*buf;
 	int		bytes_read;
@@ -38,7 +39,7 @@ int	read_and_store(int fd, char **remainder)
 	return (free(buf), 0);
 }
 
-void	extract_line(char **remainder, char **line)
+static void	extract_line(char **remainder, char **line)
 {
 	char	*new_line;
 	char	*temp;
@@ -72,18 +73,23 @@ char	*get_next_line(int fd)
 	if (!remainder)
 		return (NULL);
 	if (read_and_store(fd, &remainder) == -1)
-		return (free(remainder), NULL);
-	if (!remainder || !(*remainder))
+		return (free(remainder), remainder = NULL, NULL);
+	if (!remainder[0])
 	{
 		free(remainder);
 		remainder = NULL;
 		return (NULL);
 	}
 	extract_line(&remainder, &line);
+	if (!line || !*line)
+	{
+		free(remainder);
+		remainder = NULL;
+	}
 	return (line);
 }
+*/
 
-/*
 static void	*grow(void *ptr, int old_len, int new_len)
 {
 	void	*tmp;
@@ -114,7 +120,7 @@ static int	fill_buf(int fd, char *buf, int *buf_len, int *buf_pos)
 	return (*buf_len);
 }
 
-char	*gnl(int fd)
+char	*get_next_line(int fd)
 {
 	static char	buf[BUFFER_SIZE];
 	static int	buf_len;
@@ -157,5 +163,3 @@ char	*gnl(int fd)
 // 	}
 // 	close(fd);
 // }
-
-*/

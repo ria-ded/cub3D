@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 18:54:25 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/13 11:09:28 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-// # include <stdbool.h>
+# include <stdbool.h>
 # include "libft.h"
 
 # define HEIGHT 900
@@ -40,6 +40,7 @@ typedef struct s_config
 
 typedef struct s_player
 {
+	int		player_found;
 	char	orient;
 	int		x;
 	int		y;
@@ -69,21 +70,23 @@ typedef struct s_data
 	t_map		*map;
 	t_player	player;
 	t_config	config;
+	char		*file;
 }				t_data;
 
 // INIT
 int		init_player(t_player *player);
 int		init_config(t_config *config);
-int		init_data(t_data *g, char *file);
+int		init_data(t_data *g, char *av);
 
 // PARSER
+int		empty_line(char *line);
 int		parse_line(t_data *g, char *line);
 int		parse_config(t_data *g, int fd);
-int		parse_file(t_data *g, char *file);
-int		empty_line(char *line);
+void	parse_map(t_data *g, int fd);
+int		parse_file(t_data *g);
 
-// PARSER TEX
-int		validate_format(char *file, char *format);
+// PARSER_TEX
+bool	validate_format(char *file, char *format);
 int		set_texture(t_config *config, int dir, char *val);
 
 // PARSER_COLOR
@@ -91,20 +94,30 @@ int		set_color(t_config *config, int dir, char *val);
 int		extract_rgb_val(char *val);
 int		create_trgb(int t, int r, int g, int b);
 
-// MAP_PARSER
-
-void	del(char *str);
+// PARSER_MAP
 void	map_reader(t_data *cb3d, int fd);
-void	mapadd_back(t_map **map, t_map *mapnew);
-t_map	*mapnew(char *str, int index);
-void	printmap(t_map *map);
-void	freemap(t_map **map, void (*del)(char *));
+int		check_pos(t_map *map, t_map *priv, int pos, char *set);
+void	set_player_pos(t_data *cb3d, t_map *head, t_map *priv, int pos);
 void	check_map_valid_char(t_data *cb3d);
-void	check_player_pos(t_data *cb3d, t_map *head, t_map *priv, int pos);
-t_map	*maplast(t_map *map);
+
+// PARSER_MAP_WALL
+char	**map_to_arr(t_map *map);
+int		check_path(char **gr, int y, int x, int rows);
+int		validate_path(char **gr, t_data *cb3d);
 void	check_wall_path(t_data *cb3d);
-void	error_printer(char *msg, t_data *cb3d);
-void	printgridmap(char **map);
+
+// PARSER_MAP_UTILS
+int		map_size(t_map *map);
+t_map	*map_last(t_map *map);
+int		map_add_back(t_map **map, t_map *mapnew);
+t_map	*map_new(char *str, int index);
+void	map_delone(t_map *map, void (*del)(char *));
+
+// PRINT
+void	print_err(char *msg, t_data *cb3d);
+void	printf_config(t_config *config);
+void	print_map(t_map *map);
+void	print_grid(char **gr);
 
 // ENENTS
 
@@ -113,9 +126,10 @@ void	printgridmap(char **map);
 // RENDER
 
 // CLEANUP
+void	del(char *str);
+void	free_map(t_map **map, void (*del)(char *));
 void	free_config(t_config *config);
 void	free_arr(char **arr);
-// void	free_map(t_map *map);
 void	free_data(t_data *g);
 
 #endif

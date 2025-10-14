@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+         #
+#    By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/28 20:36:45 by mdziadko          #+#    #+#              #
-#    Updated: 2025/10/07 18:49:31 by svolkau          ###   ########.fr        #
+#    Updated: 2025/10/13 11:09:51 by mdziadko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 
 NAME		= cub3D
 CC 			= cc
-CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g3 #-fsanitize=address
 AR			= ar rcs
 RM			= rm -f
 
@@ -50,8 +50,8 @@ LIBS			= $(LIBFT_LIB) $(MLX_LIB)
 # **************************************************************************** #
 
 SRCS		= main.c parser/parser.c parser/parser_tex.c parser/parser_color.c \
-			parser/parser_map_add.c parser/parser_map.c parser/parser_map_wall.c \
-			rotation.c render.c events.c cleanup.c project.c init.c
+			parser/parser_map.c parser/parser_map_utils.c parser/parser_map_wall.c \
+			print.c rotation.c render.c events.c cleanup.c project.c init.c
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 HEADERS		= includes/cub3D.h
 
