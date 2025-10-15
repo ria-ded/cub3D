@@ -6,15 +6,15 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:23:39 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 17:08:04 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:03:34 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	create_trgb(int t, int r, int g, int b)
+int	create_trgb(int rgb[3])
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }
 
 int	extract_rgb_val(char *val)
@@ -58,6 +58,6 @@ int	set_color(t_config *config, int dir, char *val)
 	free_arr(split);
 	if (i != 3)
 		return (printf("Error: wrong rgb code\n"), 1);
-	config->color[dir] = create_trgb(0, rgb[0], rgb[1], rgb[2]);
+	config->color[dir] = create_trgb(rgb);
 	return (0);
 }

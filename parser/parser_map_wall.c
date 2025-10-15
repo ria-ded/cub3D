@@ -6,13 +6,13 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:45:48 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/07 18:56:54 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:37:03 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	mapsize(t_map *map)
+int	map_size(t_map *map)
 {
 	int	i;
 
@@ -33,7 +33,7 @@ char	**map_to_arr(t_map *map)
 
 	j = 0;
 	temp = map;
-	gr = malloc(sizeof(char *) * (maplast(map)->index + 2));
+	gr = malloc(sizeof(char *) * (map_last(map)->index + 2));
 	while (temp)
 	{
 		gr[j] = ft_strdup(temp->str);
@@ -80,7 +80,7 @@ int	validate_path(char **gridmap, t_data *cb3d)
 	int		rows;
 
 	y = -1;
-	rows = mapsize(cb3d->map);
+	rows = map_size(cb3d->map);
 	while (++y < rows)
 	{
 		x = -1;
@@ -106,6 +106,5 @@ void	check_wall_path(t_data *cb3d)
 		free_arr(gridmap);
 		error_printer("Map is not correct", cb3d);
 	}
-	printgridmap(gridmap);
 	free_arr(gridmap);
 }

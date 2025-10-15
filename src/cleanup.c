@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 18:22:07 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:24:12 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	del(char *str)
 		free(str);
 }
 
-void	mapdelone(t_map *map, void (*del)(char *))
+void	map_delone(t_map *map, void (*del)(char *))
 {
 	if (!del)
 		return ;
@@ -29,7 +29,7 @@ void	mapdelone(t_map *map, void (*del)(char *))
 	}
 }
 
-void	freemap(t_map **map, void (*del)(char *))
+void	free_map(t_map **map, void (*del)(char *))
 {
 	t_map	*tmp;
 
@@ -38,7 +38,7 @@ void	freemap(t_map **map, void (*del)(char *))
 	while (map && *map)
 	{
 		tmp = (*map)->next;
-		mapdelone(*map, del);
+		map_delone(*map, del);
 		*map = tmp;
 	}
 	*map = NULL;
@@ -76,7 +76,7 @@ void	free_data(t_data *g)
 	if (!g)
 		return ;
 	free_config(&g->config);
-	freemap(&g->map, del);
+	free_map(&g->map, del);
 	free(g->map);
 	/* if (g->mlx && g->img.img)
 	{

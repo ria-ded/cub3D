@@ -6,26 +6,18 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 17:41:15 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/09 14:49:17 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-// void	render(t_data *g)
-// {
-// 	clear_win(g, GREY);
-// 	project_map(g);
-// 	draw_map(g);
-// 	mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
-// }
-
-void	pixel_put(t_data *g, int x, int y, int color)
+void start_game(t_data *cb3d)
 {
-	char	*dst;
-
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return ;
-	dst = g->img.addr + (y * g->img.line_len + x * (g->img.bpp / 8));
-	*(unsigned int *)dst = color;
+	cb3d->mlx = mlx_init();
+	if (!cb3d->mlx)
+		free_data(cb3d);
+	cb3d->win = mlx_new_window(cb3d->mlx, WIDTH, HEIGHT, "CUB3D");
+	cb3d->img = mlx_new_image(cb3d->mlx, WIDTH, HEIGHT);
+	cb3d->img->addr = mlx_get_data_addr(cb3d->img, &cb3d->img->bpp, &cb3d->img->line_len, &cb3d->img->endian);
 }

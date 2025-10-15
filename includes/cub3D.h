@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 18:54:25 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:40:59 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,15 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
-	t_img		img;
+	t_img		*img;
 	t_map		*map;
 	t_player	player;
 	t_config	config;
 }				t_data;
 
 // INIT
-int		init_player(t_player *player);
-int		init_config(t_config *config);
+void	init_player(t_player *player);
+void	init_config(t_config *config);
 int		init_data(t_data *g, char *file);
 
 // PARSER
@@ -89,22 +89,30 @@ int		set_texture(t_config *config, int dir, char *val);
 // PARSER_COLOR
 int		set_color(t_config *config, int dir, char *val);
 int		extract_rgb_val(char *val);
-int		create_trgb(int t, int r, int g, int b);
+int		create_trgb(int rgb[3]);
 
-// MAP_PARSER
-
-void	del(char *str);
+// PARSER_MAP
 void	map_reader(t_data *cb3d, int fd);
-void	mapadd_back(t_map **map, t_map *mapnew);
-t_map	*mapnew(char *str, int index);
-void	printmap(t_map *map);
-void	freemap(t_map **map, void (*del)(char *));
+int		check_pos(t_map *map, t_map *priv, int pos, char *set);
 void	check_map_valid_char(t_data *cb3d);
 void	check_player_pos(t_data *cb3d, t_map *head, t_map *priv, int pos);
-t_map	*maplast(t_map *map);
+
+// PARSER_MAP_WALL
+int		map_size(t_map *map);
+char	**map_to_arr(t_map *map);
+int		check_path(char **gr, int y, int x, int rows);
+int		validate_path(char **gridmap, t_data *cb3d);
 void	check_wall_path(t_data *cb3d);
+
+// PARSER_MAP_ADD
+void	mapadd_back(t_map **map, t_map *mapnew);
+t_map	*map_new(char *str, int index);
+t_map	*map_last(t_map *map);
+
+// PRINT
 void	error_printer(char *msg, t_data *cb3d);
-void	printgridmap(char **map);
+void	print_map(t_map *map);
+void	print_gridmap(char **map);
 
 // ENENTS
 
@@ -115,7 +123,9 @@ void	printgridmap(char **map);
 // CLEANUP
 void	free_config(t_config *config);
 void	free_arr(char **arr);
-// void	free_map(t_map *map);
 void	free_data(t_data *g);
+void	del(char *str);
+void	map_delone(t_map *map, void (*del)(char *));
+void	free_map(t_map **map, void (*del)(char *));
 
 #endif

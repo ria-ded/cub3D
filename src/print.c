@@ -1,29 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/28 20:53:31 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/14 18:23:53 by svolkau          ###   ########.fr       */
+/*   Created: 2025/10/15 11:06:39 by svolkau           #+#    #+#             */
+/*   Updated: 2025/10/15 11:20:50 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	main(int argc, char **argv)
+void	error_printer(char *msg, t_data *cb3d)
 {
-	t_data	g;
-	char *trimmed;
+	printf("%s\n", msg);
+	free_data(cb3d);
+	exit(1);
+}
 
-	if (argc != 2 || (argv[1][0] == '.' && argv[1][1] == '.'))
-		return (printf("Error: wrong number of arguments or ../\n"), 1);
-	trimmed = ft_strtrim(argv[1], " ");
-	if (validate_format(trimmed, ".cub"))
-		return (free(trimmed), 1);
-	if (init_data(&g, trimmed))
-		return (free(trimmed), 1);
-	free_data(&g);
-	free(trimmed);
+void	print_map(t_map *map)
+{
+	while (map)
+	{
+		printf("%s", map->str);
+		map = map->next;
+	}
+	printf("\n");
+}
+
+void	print_gridmap(char **map)
+{
+	int	j;
+	int	i;
+
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+			printf("%c", map[i][j]);
+	}
+	printf("\n");
 }

@@ -6,18 +6,11 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:05:01 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/07 18:45:36 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 11:29:44 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-void	error_printer(char *msg, t_data *cb3d)
-{
-	printf("%s\n", msg);
-	free_data(cb3d);
-	exit(1);
-}
 
 void	map_reader(t_data *cb3d, int fd)
 {
@@ -35,7 +28,7 @@ void	map_reader(t_data *cb3d, int fd)
 		if (empty_line(line_of_map) && i != -1)
 			flag = 1;
 		if (!empty_line(line_of_map) && flag == 0)
-			mapadd_back(&cb3d->map, mapnew(ft_strdup(line_of_map), ++i));
+			mapadd_back(&cb3d->map, map_new(ft_strdup(line_of_map), ++i));
 		else if (!empty_line(line_of_map) && flag == 1)
 		{
 			free(line_of_map);
@@ -91,8 +84,8 @@ void	check_map_valid_char(t_data *cb3d)
 		{
 			if (!ft_strchr("EWNS10", head->str[i]) && !ft_isspace(head->str[i]))
 				error_printer("Not correct character in map", cb3d);
-			if (head->str[i] == ' ')
-				head->str[i] = '2';
+			/* if (head->str[i] == ' ')
+				head->str[i] = '2'; */
 			if (head->str[i] == '0' && !check_pos(head, priv, i, "EWNS10"))
 				error_printer("Wall or floor is not correct", cb3d);
 			if (ft_strchr("EWNS", head->str[i]))
@@ -104,4 +97,3 @@ void	check_map_valid_char(t_data *cb3d)
 	if (cb3d->player.x == 0 && cb3d->player.y == 0)
 		error_printer("No player start position", cb3d);
 }
-
