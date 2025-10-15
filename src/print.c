@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:06:39 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/15 11:20:50 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 12:12:19 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,21 @@ void	print_gridmap(char **map)
 		j = -1;
 		while (map[i][++j])
 			printf("%c", map[i][j]);
+		printf("\n");
 	}
-	printf("\n");
+}
+
+void print_player(t_player player)
+{
+	printf("Player position: x = %d, y = %d, orient = %c\n", player.x, player.y, player.orient);
+}
+
+void print_config(t_config config)
+{
+	printf("NO: %s\n", config.tex[NO]);
+	printf("SO: %s\n", config.tex[SO]);
+	printf("WE: %s\n", config.tex[WE]);
+	printf("EA: %s\n", config.tex[EA]);
+	printf("Ceiling: %d\n", config.color[CEILING]);
+	printf("Floor: %d\n", config.color[FLOOR]);
 }

@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/15 11:40:59 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 12:07:37 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ t_map	*map_last(t_map *map);
 void	error_printer(char *msg, t_data *cb3d);
 void	print_map(t_map *map);
 void	print_gridmap(char **map);
+void	print_player(t_player player);
+void	print_config(t_config config);
 
 // ENENTS
 

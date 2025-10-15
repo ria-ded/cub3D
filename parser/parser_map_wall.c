@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 18:45:48 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/15 11:37:03 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 12:10:53 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	**map_to_arr(t_map *map)
 	while (temp)
 	{
 		gr[j] = ft_strdup(temp->str);
+		gr[j][ft_strlen(gr[j]) - 1] = '\0';
 		j++;
 		temp = temp->next;
 	}
