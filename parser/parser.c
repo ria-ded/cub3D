@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/15 11:36:26 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/16 15:21:58 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ int	parse_file(t_data *g, char *file)
 		return (perror("Error: open file "), 1);
 	if (parse_config(g, fd))
 		return (close(fd), free_config(&g->config), 1);
+	free(file);
 	map_reader(g, fd);
 	check_map_valid_char(g);
 	check_wall_path(g);
 	close(fd);
+	g->gridmap = map_to_arr(g->map);
 	return (0);
 }

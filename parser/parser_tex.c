@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 20:07:15 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/15 11:41:18 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/15 12:55:30 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	set_texture(t_config *config, int dir, char *val)
 	char	*trimmed;
 	int     fd;
 
-	if (config->tex[dir])
+	if (config->tex[dir].path)
 		return (printf("Error: repetitive element\n"), 1);
 	trimmed = ft_strtrim(val, " \n");
 	if (!trimmed)
@@ -43,9 +43,9 @@ int	set_texture(t_config *config, int dir, char *val)
 			return (free(trimmed), perror("Error: open file texture "), close(fd), 1);
 		close(fd);
 	}
-	config->tex[dir] = ft_strdup(trimmed);
+	config->tex[dir].path = ft_strdup(trimmed);
 	free(trimmed);
-	if (!config->tex[dir])
+	if (!config->tex[dir].path)
 		return (perror("Error: strdup\n"), 1);
 	return (0);
 }

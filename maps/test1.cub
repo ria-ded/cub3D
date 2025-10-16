@@ -1,7 +1,7 @@
-NO  ./textures/North.ppm
-SO  ./textures/South.ppm
-WE  ./textures/West.ppm
-EA  ./textures/East.ppm
+NO  ./textures/North(1).ppm
+SO  ./textures/South(1).ppm
+WE  ./textures/West(1).ppm
+EA  ./textures/East(1).ppm
 
 F 220,100,0 
 C 225,30,0 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:27:55 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/03 10:52:26 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:26:47 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		read_and_store(int fd, char **remainder);
 void	extract_line(char **remainder, char **line);
 char	*get_next_line(int fd);
+void	free_gnl_remainder(void);
 
 #endif

@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:41:35 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/09/29 23:21:33 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:26:58 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* file-scoped remainder so it can be freed by free_gnl_remainder() */
+static char *remainder = NULL;
 
 int	read_and_store(int fd, char **remainder)
 {
@@ -62,7 +65,6 @@ void	extract_line(char **remainder, char **line)
 
 char	*get_next_line(int fd)
 {
-	static char	*remainder;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -81,6 +83,15 @@ char	*get_next_line(int fd)
 	}
 	extract_line(&remainder, &line);
 	return (line);
+}
+
+void	free_gnl_remainder(void)
+{
+	if (remainder)
+	{
+		free(remainder);
+		remainder = NULL;
+	}
 }
 
 /*

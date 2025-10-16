@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:53:31 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/15 12:04:45 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/16 15:29:51 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,5 @@ int	main(int argc, char **argv)
 		return (free(trimmed), 1);
 	if (init_data(&g, trimmed))
 		return (free(trimmed), 1);
-	print_player(g.player);
-	print_config(g.config);
-	print_map(g.map);
 	free_data(&g);
-	free(trimmed);
 }

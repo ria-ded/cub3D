@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/15 12:07:37 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/16 14:58:12 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,20 @@
 # define CEILING 0
 # define FLOOR 1
 
+typedef struct s_texture
+{
+	char	*type;		
+	int		width;
+	int		height;
+	char	*path;
+	int		*color_arr;
+}			t_texture;
+
 typedef struct s_config
 {
-	char	*tex[4];
-	int		color[2];
-}			t_config;
+	struct s_texture	tex[4];
+	int					color[2];
+}						t_config;
 
 typedef struct s_player
 {
@@ -63,10 +72,12 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	int 		fd;
 	void		*mlx;
 	void		*win;
 	t_img		*img;
 	t_map		*map;
+	char		**gridmap;
 	t_player	player;
 	t_config	config;
 }				t_data;
@@ -75,6 +86,8 @@ typedef struct s_data
 void	init_player(t_player *player);
 void	init_config(t_config *config);
 int		init_data(t_data *g, char *file);
+void	init_main_data(t_data *g);
+void	init_color_arrs(t_data *g);
 
 // PARSER
 int		parse_line(t_data *g, char *line);
@@ -115,6 +128,7 @@ void	print_map(t_map *map);
 void	print_gridmap(char **map);
 void	print_player(t_player player);
 void	print_config(t_config config);
+void	print_color_arr(t_texture tex);
 
 // ENENTS
 
@@ -129,5 +143,12 @@ void	free_data(t_data *g);
 void	del(char *str);
 void	map_delone(t_map *map, void (*del)(char *));
 void	free_map(t_map **map, void (*del)(char *));
+
+// COLOR
+void	add_color_arr(t_data *g, int text);
+int		*make_color_arr(t_data*g, int text);
+void	check_format_p3(char *line, t_data *g);
+void	get_size(t_data *g, int text);
+void	valid_texture(t_data *g, int text);
 
 #endif

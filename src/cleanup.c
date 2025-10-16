@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/15 11:24:12 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/16 15:26:52 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,28 @@ void	free_arr(char **arr)
 		return ;
 	i = 0;
 	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
+		free(arr[i++]);
 	free(arr);
 }
 
 void	free_config(t_config *config)
 {
-	if (config->tex[NO])
-		free(config->tex[NO]);
-	if (config->tex[SO])
-		free(config->tex[SO]);
-	if (config->tex[WE])
-		free(config->tex[WE]);
-	if (config->tex[EA])
-		free(config->tex[EA]);
+	if (config->tex[NO].path)
+		free(config->tex[NO].path);
+	if (config->tex[SO].path)
+		free(config->tex[SO].path);
+	if (config->tex[WE].path)
+		free(config->tex[WE].path);
+	if (config->tex[EA].path)
+		free(config->tex[EA].path);
+	if (config->tex[NO].color_arr)
+		free(config->tex[NO].color_arr);
+	if (config->tex[SO].color_arr)
+		free(config->tex[SO].color_arr);
+	if (config->tex[WE].color_arr)
+		free(config->tex[WE].color_arr);
+	if (config->tex[EA].color_arr)
+		free(config->tex[EA].color_arr);
 }
 
 void	free_data(t_data *g)
@@ -78,6 +83,10 @@ void	free_data(t_data *g)
 	free_config(&g->config);
 	free_map(&g->map, del);
 	free(g->map);
+	free_arr(g->gridmap);
+	if (g->fd > 0)
+		close(g->fd);
+	free_gnl_remainder();
 	/* if (g->mlx && g->img.img)
 	{
 		mlx_destroy_image(g->mlx, g->img.img);

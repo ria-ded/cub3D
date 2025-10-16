@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:06:39 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/15 12:12:19 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/16 14:32:53 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,26 @@ void	print_gridmap(char **map)
 	}
 }
 
-void print_player(t_player player)
+void	print_player(t_player player)
 {
 	printf("Player position: x = %d, y = %d, orient = %c\n", player.x, player.y, player.orient);
 }
 
-void print_config(t_config config)
+void	print_config(t_config config)
 {
-	printf("NO: %s\n", config.tex[NO]);
-	printf("SO: %s\n", config.tex[SO]);
-	printf("WE: %s\n", config.tex[WE]);
-	printf("EA: %s\n", config.tex[EA]);
+	printf("NO: %s\n", config.tex[NO].path);
+	printf("SO: %s\n", config.tex[SO].path);
+	printf("WE: %s\n", config.tex[WE].path);
+	printf("EA: %s\n", config.tex[EA].path);
 	printf("Ceiling: %d\n", config.color[CEILING]);
 	printf("Floor: %d\n", config.color[FLOOR]);
+}
+
+void	print_color_arr(t_texture tex)
+{
+	int	i;
+
+	i = -1;
+	while (++i < (tex.width * tex.height))
+		printf("index: %d, color: %d\n", i, tex.color_arr[i]);
 }
