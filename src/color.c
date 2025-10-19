@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 13:14:38 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/16 16:20:53 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/19 18:26:29 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-int	arr_size(char **arr)
-{
-	int i;
-
-	i = 0;
-	while(arr[i])
-		i++;
-	return(i);
-}
 
 void	valid_texture(t_data *g, int text)
 {
@@ -87,25 +77,11 @@ int	*make_color_arr(t_data*g, int text)
 		if (line[0] != '\n')
 		{
 			split = ft_split(line, ' ');
-			if ((arr_size(split) - 1) % 3 != 0)
-			{
-				free_arr(split);
-				free(line);
-				free(rez);
-				error_printer("Error: Not valid texture1", g);
-			}
 			i = 0;
 			while (split[i])
 			{
 				if (split[i][0] != '\n')
 				{
-					if (j > (g->config.tex[text].height * g->config.tex[text].width) - 1)
-					{
-						free_arr(split);
-						free(line);
-						free(rez);
-						error_printer("Error: Not valid texture", g);
-					}
 					rez[j++] = create_trgb((int [3]){ft_atoi(split[i]), ft_atoi(split[i + 1]), ft_atoi(split[i + 2])});
 					i += 3;
 				}

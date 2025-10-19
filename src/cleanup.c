@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/16 15:26:52 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/19 19:09:53 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,20 @@ void	free_config(t_config *config)
 }
 
 void	free_data(t_data *g)
-{
+{	
 	if (!g)
 		return ;
+	if (g->mlx)
+		mlx_loop_end(g->mlx);
+	if (g->mlx && g->img.img)
+		mlx_destroy_image(g->mlx, g->img.img);
+	if (g->mlx && g->win)
+		mlx_destroy_window(g->mlx, g->win);
+	if (g->mlx)
+	{
+		mlx_destroy_display(g->mlx);
+		free(g->mlx);
+	}
 	free_config(&g->config);
 	free_map(&g->map, del);
 	free(g->map);
@@ -87,15 +98,4 @@ void	free_data(t_data *g)
 	if (g->fd > 0)
 		close(g->fd);
 	free_gnl_remainder();
-	/* if (g->mlx && g->img.img)
-	{
-		mlx_destroy_image(g->mlx, g->img.img);
-		g->img.img = NULL;
-	}
-	if (g->win)
-		mlx_destroy_window(g->mlx, g->win);
-# ifdef __linux__
-	mlx_destroy_display(g->mlx);
-	free (g->mlx);
-# endif */
 }

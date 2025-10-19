@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 07:50:51 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/16 14:33:51 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/19 20:07:45 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,25 @@ void	init_config(t_config *config)
 	config->color[FLOOR] = -1;
 }
 
+void	init_image(t_img *img)
+{
+	img->img = NULL;
+	img->bpp = -1;
+	img->endian = -1;
+	img->line_len = -1;
+}
+
 void	init_main_data(t_data *g)
 {
 	g->fd = 0;
+	g->dir_x = 0;
+	g->dir_y = 0;
+	g->plane_x = 0;
+	g->plane_y = 0;
 	g->mlx = NULL;
-	g->img = NULL;
 	g->win = NULL;
 	g->map = NULL;
+	g->win_data = NULL;
 	g->gridmap = NULL;
 }
 
@@ -59,6 +71,7 @@ int	init_data(t_data *g, char *file)
 	ft_bzero(g, sizeof(t_data));
 	init_config(&g->config);
 	init_player(&g->player);
+	init_image(&g->img);
 	init_main_data(g);
 	if (parse_file(g, file))
 		return (1);

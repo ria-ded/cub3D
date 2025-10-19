@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+         #
+#    By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/28 20:36:45 by mdziadko          #+#    #+#              #
-#    Updated: 2025/10/15 13:17:48 by svolkau          ###   ########.fr        #
+#    Updated: 2025/10/19 19:51:01 by svolkau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,8 @@ LIBS			= $(LIBFT_LIB) $(MLX_LIB)
 SRCS		= main.c parser/parser.c parser/parser_tex.c parser/parser_color.c \
 			parser/parser_map_add.c parser/parser_map.c parser/parser_map_wall.c \
 			src/cleanup.c src/print.c src/init.c src/color.c \
-			render/render.c \
+			render/render.c render/rcast.c render/rcast_add.c \
+			game/project.c \
 			rotation.c events.c project.c
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 HEADERS		= includes/cub3D.h

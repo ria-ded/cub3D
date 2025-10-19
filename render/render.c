@@ -3,21 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/09 14:49:17 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/19 20:21:52 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void start_game(t_data *cb3d)
+void	set_orient_values(t_data *g, double x, double y, double px, double py)
 {
-	cb3d->mlx = mlx_init();
-	if (!cb3d->mlx)
-		free_data(cb3d);
-	cb3d->win = mlx_new_window(cb3d->mlx, WIDTH, HEIGHT, "CUB3D");
-	cb3d->img = mlx_new_image(cb3d->mlx, WIDTH, HEIGHT);
-	cb3d->img->addr = mlx_get_data_addr(cb3d->img, &cb3d->img->bpp, &cb3d->img->line_len, &cb3d->img->endian);
+	g->dir_x = x;
+	g->dir_y = y;
+	g->plane_x = px;
+	g->plane_y = py;
+}
+
+void	set_orient(t_data *g)
+{
+	if (g->player.orient == 'N')
+		set_orient_values(g, 0, -1, 0.66, 0);
+	else if (g->player.orient== 'S')
+		set_orient_values(g, 0, 1, -0.66, 0);
+	else if (g->player.orient == 'E')
+		set_orient_values(g, 1, 0, 0, 0.66);
+	else if (g->player.orient == 'W')
+		set_orient_values(g, -1, 0, 0, -0.66);
+}
+
+void	set_pixel(t_data *g, int x, int y, int color)
+{
+	int	pix;
+
+	pix = (y * g->img.line_len) + (x * (g->img.bpp / 8));
+	g->win_data[pix] = color & 0xFF;
+	g->win_data[pix + 1] = (color >> 8) & 0xFF;
+	g->win_data[pix + 2] = (color >> 16) & 0xFF;
+	if (g->img.bpp == 32)
+		g->win_data[pix + 3] = 0x00;
+}
+
+void	draw_cf(t_data *g, char flag)
+{
+	int	x;
+	int	y;
+	int	color;
+	int	size;
+
+	if (flag == 'f')
+	{
+		y = 0;
+		size = HEIGHT / 2;
+		color = g->config.color[CEILING];
+	}
+	if (flag == 'c')
+	{
+		y = (HEIGHT / 2) - 1;
+		size = HEIGHT;
+		color = g->config.color[FLOOR];
+	}
+	while (++y < size)
+	{
+		x = -1;
+		while (++x < WIDTH)
+			set_pixel(g, x, y, color);
+	}
+}
+
+void	print_display(t_data *g)
+{
+	mlx_destroy_image(g->mlx, g->img.img);
+	g->img.img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
+	g->win_data = mlx_get_data_addr(g->img.img, &g->img.bpp,
+			&g->img.line_len, &g->img.endian);
+	draw_cf(g, 'f');
+	draw_cf(g, 'c');
+	cast_rays(g);
+	mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 }

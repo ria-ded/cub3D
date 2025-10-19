@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/16 14:58:12 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/19 20:26:18 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,15 @@
 // # include <stdbool.h>
 # include "libft.h"
 
-# define HEIGHT 900
-# define WIDTH 1200
+# define HEIGHT 768
+# define WIDTH 1024
+# define KEY_ESC 65307
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_A 97
+# define KEY_D 100
+# define KEY_W 119
+# define KEY_S 115
 
 # define NO 0
 # define SO 1
@@ -57,7 +64,6 @@ typedef struct s_player
 typedef struct s_img
 {
 	void	*img;
-	char	*addr;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -72,12 +78,37 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			step_x;
+	int			step_y;
+	int			side;
+	int			hit;
+	int			map_x;
+	int			map_y;
+	int			tex_x;
+	int			tex_y;
+	float		wall_x;
+	double		perp_wall_dist;
+	double		side_d_x;
+	double		side_d_y;
+	double		delta_d_x;
+	double		delta_d_y;
+	double		camera_x;
+	double		ray_dirx;
+	double		ray_diry;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 	int 		fd;
 	void		*mlx;
 	void		*win;
-	t_img		*img;
+	char		*win_data;
 	t_map		*map;
 	char		**gridmap;
+	t_img		img;
 	t_player	player;
 	t_config	config;
 }				t_data;
@@ -130,11 +161,31 @@ void	print_player(t_player player);
 void	print_config(t_config config);
 void	print_color_arr(t_texture tex);
 
-// ENENTS
+// RCAST
+void	cast_rays(t_data *g);
+void	set_ray(t_data *g);
+void	move_ray(t_data *g);
+void	distance(t_data *g);
+void	draw(t_data *g);
+
+// RCAST_ADD
+void	draw_object(t_data *g);
+void	set_pos(t_data *g);
+int		get_texture(t_data *g);
+void	get_delta_dist(t_data *g);
+void	render(int x, int y, t_data *g, int col);
 
 // PROJECT
+void	start_game(t_data *g);
+int		handlevent(int keycode, t_data *g);
+int		closewin(t_data *g);
 
 // RENDER
+void	set_orient_values(t_data *g, double x, double y, double px, double py);
+void	set_orient(t_data *g);
+void	set_pixel(t_data *g, int x, int y, int color);
+void	draw_cf(t_data *g, char flag);
+void	print_display(t_data *g);
 
 // CLEANUP
 void	free_config(t_config *config);
