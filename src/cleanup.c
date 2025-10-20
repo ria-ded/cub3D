@@ -3,33 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/19 19:09:53 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/20 12:58:36 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	del(char *str)
+void	map_delone(t_map *map)
 {
-	if (str)
-		free(str);
-}
-
-void	map_delone(t_map *map, void (*del)(char *))
-{
-	if (!del)
-		return ;
 	if (map)
 	{
-		(*del)(map->str);
+		if (map->str)
+			free(map->str);
 		free(map);
 	}
 }
 
-void	free_map(t_map **map, void (*del)(char *))
+void	free_map(t_map **map)
 {
 	t_map	*tmp;
 
@@ -38,7 +31,7 @@ void	free_map(t_map **map, void (*del)(char *))
 	while (map && *map)
 	{
 		tmp = (*map)->next;
-		map_delone(*map, del);
+		map_delone(*map);
 		*map = tmp;
 	}
 	*map = NULL;
@@ -77,7 +70,7 @@ void	free_config(t_config *config)
 }
 
 void	free_data(t_data *g)
-{	
+{
 	if (!g)
 		return ;
 	if (g->mlx)
@@ -92,7 +85,7 @@ void	free_data(t_data *g)
 		free(g->mlx);
 	}
 	free_config(&g->config);
-	free_map(&g->map, del);
+	free_map(&g->map);
 	free(g->map);
 	free_arr(g->gridmap);
 	if (g->fd > 0)

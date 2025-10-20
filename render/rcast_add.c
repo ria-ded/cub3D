@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rcast_add.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:35:52 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/19 20:26:58 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/20 12:48:11 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	set_pos(t_data *g)
 	if (g->side == 0)
 		wall_x = g->player.y + g->perp_wall_dist * g->ray_diry;
 	else
-		wall_x = g->player.x+ g->perp_wall_dist * g->ray_dirx;
+		wall_x = g->player.x + g->perp_wall_dist * g->ray_dirx;
 	wall_x -= floor(wall_x);
 	g->tex_x = (int)(wall_x * (double)g->config.tex[NO].width);
 	if (g->side == 0 && g->ray_dirx > 0)

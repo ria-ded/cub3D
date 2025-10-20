@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:06:39 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/16 14:32:53 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/20 13:35:14 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ void	print_gridmap(char **map)
 			printf("%c", map[i][j]);
 		printf("\n");
 	}
-}
-
-void	print_player(t_player player)
-{
-	printf("Player position: x = %d, y = %d, orient = %c\n", player.x, player.y, player.orient);
 }
 
 void	print_config(t_config config)

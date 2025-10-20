@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/19 20:21:52 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/20 12:52:29 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	set_orient(t_data *g)
 {
 	if (g->player.orient == 'N')
 		set_orient_values(g, 0, -1, 0.66, 0);
-	else if (g->player.orient== 'S')
+	else if (g->player.orient == 'S')
 		set_orient_values(g, 0, 1, -0.66, 0);
 	else if (g->player.orient == 'E')
 		set_orient_values(g, 1, 0, 0, 0.66);

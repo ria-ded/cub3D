@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/19 20:26:18 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/20 13:35:29 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	int			fd;
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
@@ -102,7 +103,6 @@ typedef struct s_data
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
-	int 		fd;
 	void		*mlx;
 	void		*win;
 	char		*win_data;
@@ -114,7 +114,7 @@ typedef struct s_data
 }				t_data;
 
 // INIT
-void	init_player(t_player *player);
+void	init_image(t_img *img);
 void	init_config(t_config *config);
 int		init_data(t_data *g, char *file);
 void	init_main_data(t_data *g);
@@ -157,7 +157,6 @@ t_map	*map_last(t_map *map);
 void	error_printer(char *msg, t_data *cb3d);
 void	print_map(t_map *map);
 void	print_gridmap(char **map);
-void	print_player(t_player player);
 void	print_config(t_config config);
 void	print_color_arr(t_texture tex);
 
@@ -191,15 +190,14 @@ void	print_display(t_data *g);
 void	free_config(t_config *config);
 void	free_arr(char **arr);
 void	free_data(t_data *g);
-void	del(char *str);
-void	map_delone(t_map *map, void (*del)(char *));
-void	free_map(t_map **map, void (*del)(char *));
+void	map_delone(t_map *map);
+void	free_map(t_map **map);
 
 // COLOR
 void	add_color_arr(t_data *g, int text);
 int		*make_color_arr(t_data*g, int text);
 void	check_format_p3(char *line, t_data *g);
 void	get_size(t_data *g, int text);
-void	valid_texture(t_data *g, int text);
+void	make_split_color(char *line, int *rez, int *j);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <svolkau@student.42warsaw.pl>      +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:53:31 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/19 20:27:31 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/20 13:36:10 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_data	g;
-	char *trimmed;
+	char	*trimmed;
 
 	if (argc != 2 || (argv[1][0] == '.' && argv[1][1] == '.'))
 		return (printf("Error: wrong number of arguments or ../\n"), 1);

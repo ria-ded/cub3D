@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:05:01 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/15 11:29:44 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/20 12:45:24 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	check_map_valid_char(t_data *cb3d)
 		{
 			if (!ft_strchr("EWNS10", head->str[i]) && !ft_isspace(head->str[i]))
 				error_printer("Not correct character in map", cb3d);
-			/* if (head->str[i] == ' ')
-				head->str[i] = '2'; */
 			if (head->str[i] == '0' && !check_pos(head, priv, i, "EWNS10"))
 				error_printer("Wall or floor is not correct", cb3d);
 			if (ft_strchr("EWNS", head->str[i]))
