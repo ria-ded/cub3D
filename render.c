@@ -3,29 +3,118 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/07 17:41:15 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/22 01:00:32 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-// void	render(t_data *g)
-// {
-// 	clear_win(g, GREY);
-// 	project_map(g);
-// 	draw_map(g);
-// 	mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
-// }
-
-void	pixel_put(t_data *g, int x, int y, int color)
+void	init_ray(t_ray *r, t_player *p)
 {
-	char	*dst;
+	int	axis;
 
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return ;
-	dst = g->img.addr + (y * g->img.line_len + x * (g->img.bpp / 8));
-	*(unsigned int *)dst = color;
+	axis = X;
+	while (axis <= Y)
+	{
+		r->map[axis] = (int)p->pos[axis];
+		r->dir[axis] = p->dir[axis] + p->plane[axis] * r->camera_x;
+		if (r->dir[axis] == 0.0)
+			r->delta_dist[axis] = INFINITY;
+		else
+			r->delta_dist[axis] = fabs(1.0 / r->dir[axis]);
+		if (r->dir[axis] < 0.0)
+		{
+			r->step[axis] = -1;
+			r->side_dist[axis]
+				= (p->pos[axis] - r->map[axis]) * r->delta_dist[axis];
+		}
+		else
+		{
+			r->step[axis] = 1;
+			r->side_dist[axis]
+				= (r->map[axis] + 1.0 - p->pos[axis]) * r->delta_dist[axis];
+		}
+		axis++;
+	}
+}
+
+void	hit_wall(t_ray *r, char **map)
+{
+	int	hit;
+
+	hit = 0;
+	while (!hit)
+	{
+		if (r->side_dist[X] < r->side_dist[Y])
+		{
+			r->side_dist[X] += r->delta_dist[X];
+			r->map[X] += r->step[X];
+			r->side = 0;
+		}
+		else
+		{
+			r->side_dist[Y] += r->delta_dist[Y];
+			r->map[Y] += r->step[Y];
+			r->side = 1;
+		}
+		if (r->map[Y] < 0 || !map[r->map[Y]] || r->map[X] < 0
+			|| r->map[X] >= (int)ft_strlen(map[r->map[Y]]))
+			break ;
+		if (map[r->map[Y]][r->map[X]] == '1')
+			hit = 1;
+	}
+}
+
+void	calc_dist(t_ray *r, t_player *p)
+{
+	if (r->side == 0)
+		r->perp_wall_dist
+			= (r->map[X] - p->pos[X] + (1 - r->step[X]) / 2.0) / r->dir[X];
+	else
+		r->perp_wall_dist
+			= (r->map[Y] - p->pos[Y] + (1 - r->step[Y]) / 2.0) / r->dir[Y];
+	if (r->perp_wall_dist < 0)
+		r->perp_wall_dist = fabs(r->perp_wall_dist);
+}
+
+int	wall_dir(t_ray *r)
+{
+	int	wall;
+
+	if (r->side == 0)
+	{
+		if (r->step[X] > 0)
+			wall = EA;
+		else
+			wall = WE;
+	}
+	else
+	{
+		if (r->step[Y] > 0)
+			wall = SO;
+		else
+			wall = NO;
+	}
+	return (wall);
+}
+
+void	render(t_data	*g)
+{
+	int	x;
+
+	clear_frame(g);
+	x = 0;
+	while (x < WIDTH)
+	{
+		g->ray.camera_x = 2 * x / (double)WIDTH - 1;
+		init_ray(&g->ray, &g->player);
+		hit_wall(&g->ray, g->mapA);
+		calc_dist(&g->ray, &g->player);
+		draw_line(g, wall_dir(&g->ray), x);
+		x++;
+	}
+	mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 }

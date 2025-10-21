@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/13 11:09:28 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 00:45:34 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,33 @@
 # define CEILING 0
 # define FLOOR 1
 
+# define FOV 66
+
+# define X 0
+# define Y 1
+
+# define INFINITY 1e30
 typedef struct s_config
 {
-	char	*tex[4];
+	char	*tex_path[4];
+	t_img	tex[4];
 	int		color[2];
 }			t_config;
+
+typedef struct s_ray
+{
+	double	dir[2];
+	double	camera_x;
+	double	side_dist[2];
+	double	delta_dist[2];
+	double	perp_wall_dist;
+	int		map[2];
+	int		step[2];
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}			t_ray;
 
 typedef struct s_player
 {
@@ -44,6 +66,9 @@ typedef struct s_player
 	char	orient;
 	int		x;
 	int		y;
+	double	pos[2];
+	double	dir[2];
+	double	plane[2];
 }			t_player;
 
 typedef struct s_img
@@ -53,6 +78,8 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 }			t_img;
 
 typedef struct s_map
@@ -69,14 +96,21 @@ typedef struct s_data
 	t_img		img;
 	t_map		*map;
 	t_player	player;
-	t_config	config;
+	t_ray		ray;
+	char		**mapA;
+	t_config	c;
 	char		*file;
 }				t_data;
 
 // INIT
 int		init_player(t_player *player);
-int		init_config(t_config *config);
+int		init_config(t_config *c);
 int		init_data(t_data *g, char *av);
+
+// SETUP
+void	setup_game(t_data *g);
+void	set_plane(t_player *p);
+void	set_dir(t_player *p);
 
 // PARSER
 int		empty_line(char *line);
@@ -87,10 +121,10 @@ int		parse_file(t_data *g);
 
 // PARSER_TEX
 bool	validate_format(char *file, char *format);
-int		set_texture(t_config *config, int dir, char *val);
+int		set_texture(t_config *c, int dir, char *val);
 
 // PARSER_COLOR
-int		set_color(t_config *config, int dir, char *val);
+int		set_color(t_config *c, int dir, char *val);
 int		extract_rgb_val(char *val);
 int		create_trgb(int t, int r, int g, int b);
 
@@ -115,20 +149,29 @@ void	map_delone(t_map *map, void (*del)(char *));
 
 // PRINT
 void	print_err(char *msg, t_data *cb3d);
-void	printf_config(t_config *config);
+void	printf_config(t_config *c);
 void	print_map(t_map *map);
 void	print_grid(char **gr);
 
 // ENENTS
 
-// PROJECT
+// DRAW
+void	draw_line(t_data *g, int dir, int screen_x);
+void	put_texture(t_data *g, double tex[2], int dir, int x);
+void	pixel_put(t_data *g, int x, int y, int color);
+void	clear_frame(t_data *g);
 
 // RENDER
+void	init_ray(t_ray *r, t_player *p);
+void	hit_wall(t_ray *r, char **map);
+void	calc_dist(t_ray *r, t_player *p);
+int		wall_dir(t_ray *r);
+void	render(t_data	*g);
 
 // CLEANUP
 void	del(char *str);
 void	free_map(t_map **map, void (*del)(char *));
-void	free_config(t_config *config);
+void	free_config(t_data *g);
 void	free_arr(char **arr);
 void	free_data(t_data *g);
 

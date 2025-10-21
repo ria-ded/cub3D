@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 17:12:54 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/13 10:55:25 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:32:50 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	printf_config(t_config *config)
 	i = 0;
 	while (i < 4)
 	{
-		printf("config->tex[%i] = %s\n", i, config->tex[i]);
+		printf("config->tex[%i] = %s\n", i, config->tex_path[i]);
 		i++;
 	}
 	i = 0;

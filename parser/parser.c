@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/12 10:43:06 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/21 21:30:09 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ int	parse_line(t_data *g, char *line)
 		return (free(trimmed), -1);
 	exit_code = 1;
 	if (!ft_strncmp(trimmed, "NO ", 3))
-		exit_code = set_texture(&g->config, NO, trimmed + 2);
+		exit_code = set_texture(&g->c, NO, trimmed + 2);
 	else if (!ft_strncmp(trimmed, "SO ", 3))
-		exit_code = set_texture(&g->config, SO, trimmed + 2);
+		exit_code = set_texture(&g->c, SO, trimmed + 2);
 	else if (!ft_strncmp(trimmed, "WE ", 3))
-		exit_code = set_texture(&g->config, WE, trimmed + 2);
+		exit_code = set_texture(&g->c, WE, trimmed + 2);
 	else if (!ft_strncmp(trimmed, "EA ", 3))
-		exit_code = set_texture(&g->config, EA, trimmed + 2);
+		exit_code = set_texture(&g->c, EA, trimmed + 2);
 	else if (!ft_strncmp(trimmed, "C ", 2))
-		exit_code = set_color(&g->config, CEILING, trimmed + 1);
+		exit_code = set_color(&g->c, CEILING, trimmed + 1);
 	else if (!ft_strncmp(trimmed, "F ", 2))
-		exit_code = set_color(&g->config, FLOOR, trimmed + 1);
+		exit_code = set_color(&g->c, FLOOR, trimmed + 1);
 	else
 		exit_code = (printf("Error\nUnknown directive or no directive\n"), 1);
 	free(trimmed);
@@ -92,7 +92,7 @@ int	parse_file(t_data *g)
 		return (printf("Error\nOpen file\n"), free_data(g), 1);
 	if (parse_config(g, fd))
 		return (close(fd), free_data(g), 1);
-	printf_config(&g->config);
+	printf_config(&g->c);
 	parse_map(g, fd);
 	print_map(g->map);
 	close(fd);

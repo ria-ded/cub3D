@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/13 11:00:35 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/21 21:49:14 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,27 @@ void	free_arr(char **arr)
 	free(arr);
 }
 
-void	free_config(t_config *config)
+void	free_config(t_data *g)
 {
-	if (config->tex[NO])
-		free(config->tex[NO]);
-	if (config->tex[SO])
-		free(config->tex[SO]);
-	if (config->tex[WE])
-		free(config->tex[WE]);
-	if (config->tex[EA])
-		free(config->tex[EA]);
+	int	dir;
+
+	dir = 0;
+	while (dir < 4)
+	{
+		if (g->mlx && g->c.tex[dir].img)
+		{
+			mlx_destroy_image(g->mlx, g->c.tex[dir].img);
+			g->c.tex[dir].img = NULL;
+		}
+		if (g->c.tex_path[dir])
+		{
+			free(g->c.tex_path[dir]);
+			g->c.tex_path[dir] = NULL;
+		}
+		dir++;
+	}
 }
+
 
 void	free_data(t_data *g)
 {
@@ -66,7 +76,7 @@ void	free_data(t_data *g)
 		return ;
 	if (g->file)
 		free(g->file);
-	free_config(&g->config);
+	free_config(g);
 	free_map(&g->map, del);
 	if (g->mlx && g->img.img)
 	{

@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 20:07:15 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/10 18:18:19 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 01:02:04 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ bool	validate_format(char *file, char *format)
 	return (true);
 }
 
-int	set_texture(t_config *config, int dir, char *val)
+int	set_texture(t_data *g, int dir, char *val)
 {
 	char	*trimmed;
 	int		fd;
 
-	if (config->tex[dir])
+	if (g->c.tex_path[dir])
 		return (printf("Error\nRepetitive element\n"), 1);
 	trimmed = ft_strtrim(val, " \n");
 	if (!trimmed)
@@ -41,10 +41,28 @@ int	set_texture(t_config *config, int dir, char *val)
 	fd = open(trimmed, O_RDONLY);
 	if (fd == -1)
 		return (printf("Error\nOpen file texture\n"), free(trimmed), 1);
-	close(fd);
-	config->tex[dir] = ft_strdup(trimmed);
+	g->c.tex_path[dir] = ft_strdup(trimmed);
 	free(trimmed);
-	if (!config->tex[dir])
-		return (printf("Error\nStrdup\n"), 1);
+	if (!g->c.tex_path[dir])
+		return (printf("Error\nStrdup\n"), close(fd), 1);
+	if (texture_loading(g, dir))
+		return (close(fd), 1);
+	close(fd);
+	return (0);
+}
+
+int	texture_loading(t_data *g, int dir)
+{
+	g->c.tex[dir].img = mlx_xpm_file_to_image(
+		g->mlx, g->c.tex_path[dir],
+		&g->c.tex[dir].width,
+		&g->c.tex[dir].height);
+	if (!g->c.tex[dir].img)
+		return (printf("Error\nTexture loading\n"), 1);
+	g->c.tex[dir].addr = mlx_get_data_addr(
+		g->c.tex[dir].img,
+		&g->c.tex[dir].bpp,
+		&g->c.tex[dir].line_len,
+		&g->c.tex[dir].endian);
 	return (0);
 }
