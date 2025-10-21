@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/20 12:52:29 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/21 13:44:00 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	draw_cf(t_data *g, char flag)
 
 	if (flag == 'f')
 	{
-		y = 0;
+		y = -1;
 		size = HEIGHT / 2;
 		color = g->config.color[CEILING];
 	}

@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/20 13:35:29 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/21 14:04:25 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ void	draw_object(t_data *g);
 void	set_pos(t_data *g);
 int		get_texture(t_data *g);
 void	get_delta_dist(t_data *g);
-void	render(int x, int y, t_data *g, int col);
 
 // PROJECT
 void	start_game(t_data *g);

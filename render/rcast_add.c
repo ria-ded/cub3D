@@ -6,21 +6,11 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:35:52 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/20 12:48:11 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/21 14:04:10 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-void	render(int x, int y, t_data *g, int col)
-{
-	int	pix;
-
-	pix = (y * g->img.line_len) + (x * (g->img.bpp / 8));
-	g->win_data[pix] = col & 0xFF;
-	g->win_data[pix + 1] = (col >> 8) & 0xFF;
-	g->win_data[pix + 2] = (col >> 16) & 0xFF;
-}
 
 void	get_delta_dist(t_data *g)
 {
@@ -87,7 +77,7 @@ void	draw_object(t_data *g)
 			.width * g->tex_y + g->tex_x];
 		if (g->side == 1)
 			color = (color >> 1) & 8355711;
-		render(g->wall_x, g->draw_start, g, color);
+		set_pixel(g, g->wall_x, g->draw_start, color);
 		g->draw_start += 1;
 	}
 	g->wall_x += 1;
