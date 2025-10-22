@@ -6,12 +6,12 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/21 21:30:09 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 09:33:15 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
+ 
 int	empty_line(char *line)
 {
 	while (*line)

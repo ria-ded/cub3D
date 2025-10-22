@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 00:43:44 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 00:44:27 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:04:35 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,31 @@ void	setup_game(t_data *g)
 	g->player.pos[Y] = (double)g->player.y + 0.5;
 	set_dir(&g->player);
 	set_plane(&g->player);
+	load_texture(g);
+}
+
+void	load_texture(t_data *g)
+{
+	int	dir;
+
+	dir = 0;
+	while (dir < 4)
+	{
+		g->c.tex[dir].img = mlx_xpm_file_to_image(
+				g->mlx, g->c.tex_path[dir],
+				&g->c.tex[dir].width,
+				&g->c.tex[dir].height);
+		if (!g->c.tex[dir].img)
+			print_err(("Texture loading"), g);
+		g->c.tex[dir].addr = mlx_get_data_addr(
+				g->c.tex[dir].img,
+				&g->c.tex[dir].bpp,
+				&g->c.tex[dir].line_len,
+				&g->c.tex[dir].endian);
+		if (!g->c.tex[dir].addr)
+			print_err(("Texture data addr"), g);
+		dir++;
+	}
 }
 
 void	set_plane(t_player *p)

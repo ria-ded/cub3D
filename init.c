@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 07:50:51 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 00:58:21 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 01:03:35 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	init_data(t_data *g, char *av)
 	g->mlx = mlx_init();
 	if (!g->mlx)
 		return (printf("Error: mlx init\n"), 1);
-	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, file);
+	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, g->file);
 	g->img.img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	g->img.addr = mlx_get_data_addr(
 			g->img.img, &g->img.bpp, &g->img.line_len, &g->img.endian);

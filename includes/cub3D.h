@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 00:45:34 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:23:52 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,16 @@
 # define X 0
 # define Y 1
 
-# define INFINITY 1e30
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}			t_img;
 typedef struct s_config
 {
 	char	*tex_path[4];
@@ -71,16 +80,6 @@ typedef struct s_player
 	double	plane[2];
 }			t_player;
 
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		width;
-	int		height;
-}			t_img;
 
 typedef struct s_map
 {
@@ -106,11 +105,6 @@ typedef struct s_data
 int		init_player(t_player *player);
 int		init_config(t_config *c);
 int		init_data(t_data *g, char *av);
-
-// SETUP
-void	setup_game(t_data *g);
-void	set_plane(t_player *p);
-void	set_dir(t_player *p);
 
 // PARSER
 int		empty_line(char *line);
@@ -153,6 +147,12 @@ void	printf_config(t_config *c);
 void	print_map(t_map *map);
 void	print_grid(char **gr);
 
+// SETUP
+void	setup_game(t_data *g);
+void	set_plane(t_player *p);
+void	set_dir(t_player *p);
+void	load_texture(t_data *g);
+
 // ENENTS
 
 // DRAW
@@ -163,8 +163,8 @@ void	clear_frame(t_data *g);
 
 // RENDER
 void	init_ray(t_ray *r, t_player *p);
-void	hit_wall(t_ray *r, char **map);
-void	calc_dist(t_ray *r, t_player *p);
+bool	hit_wall(t_ray *r, char **map);
+bool	calc_dist(t_ray *r, t_player *p);
 int		wall_dir(t_ray *r);
 void	render(t_data	*g);
 

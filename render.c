@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 01:00:32 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:23:02 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,9 @@ void	init_ray(t_ray *r, t_player *p)
 	}
 }
 
-void	hit_wall(t_ray *r, char **map)
+bool	hit_wall(t_ray *r, char **map)
 {
-	int	hit;
-
-	hit = 0;
-	while (!hit)
+	while (true)
 	{
 		if (r->side_dist[X] < r->side_dist[Y])
 		{
@@ -62,13 +59,14 @@ void	hit_wall(t_ray *r, char **map)
 		}
 		if (r->map[Y] < 0 || !map[r->map[Y]] || r->map[X] < 0
 			|| r->map[X] >= (int)ft_strlen(map[r->map[Y]]))
-			break ;
-		if (map[r->map[Y]][r->map[X]] == '1')
-			hit = 1;
+			return (false);
+		if (map[r->map[Y]][r->map[X]] == '1'
+			|| map[r->map[Y]][r->map[X]] == '2')
+			return (true);
 	}
 }
 
-void	calc_dist(t_ray *r, t_player *p)
+bool	calc_dist(t_ray *r, t_player *p)
 {
 	if (r->side == 0)
 		r->perp_wall_dist
@@ -76,8 +74,7 @@ void	calc_dist(t_ray *r, t_player *p)
 	else
 		r->perp_wall_dist
 			= (r->map[Y] - p->pos[Y] + (1 - r->step[Y]) / 2.0) / r->dir[Y];
-	if (r->perp_wall_dist < 0)
-		r->perp_wall_dist = fabs(r->perp_wall_dist);
+	return (r->perp_wall_dist > 0);
 }
 
 int	wall_dir(t_ray *r)
@@ -111,8 +108,12 @@ void	render(t_data	*g)
 	{
 		g->ray.camera_x = 2 * x / (double)WIDTH - 1;
 		init_ray(&g->ray, &g->player);
-		hit_wall(&g->ray, g->mapA);
-		calc_dist(&g->ray, &g->player);
+		if (!hit_wall(&g->ray, g->mapA)
+			|| !calc_dist(&g->ray, &g->player))
+		{
+			x++;
+			continue ;
+		}
 		draw_line(g, wall_dir(&g->ray), x);
 		x++;
 	}
