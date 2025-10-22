@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:53:31 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:51:00 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/22 18:32:59 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ static int	handlevent(int keycode, t_data *g)
 {
 	if (keycode == KEY_ESC)
 		closewin(g);
+	if (keycode == KEY_W)
+		move_forward(g);
+	if (keycode == KEY_S)
+		move_backward(g);
+	if (keycode == KEY_A)
+		move_left(g);
+	if (keycode == KEY_D)
+		move_right(g);
+	if (keycode == KEY_LEFT)
+		turn_left(g);
+	if (keycode == KEY_RIGHT)
+		turn_right(g);
+	render(g);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:52:16 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/22 18:32:54 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@
 # define WIDTH 1200
 
 # define KEY_ESC 65307
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_A 97
+# define KEY_D 100
+# define KEY_W 119
+# define KEY_S 115
 
 # define NO 0
 # define SO 1
@@ -157,6 +163,12 @@ void	set_dir(t_player *p);
 void	load_texture(t_data *g);
 
 // ENENTS
+void	move_forward(t_data *g);
+void	move_backward(t_data *g);
+void	move_left(t_data *g);
+void	move_right(t_data *g);
+void	turn_right(t_data *g);
+void	turn_left(t_data *g);
 
 // DRAW
 void	draw_line(t_data *g, int dir, int screen_x);
