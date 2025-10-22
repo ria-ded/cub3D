@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 11:23:52 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:49:41 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_img
 	int		width;
 	int		height;
 }			t_img;
+
 typedef struct s_config
 {
 	char	*tex_path[4];
@@ -79,7 +80,6 @@ typedef struct s_player
 	double	dir[2];
 	double	plane[2];
 }			t_player;
-
 
 typedef struct s_map
 {

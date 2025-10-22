@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:53:31 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 10:39:12 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 13:36:00 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	if (init_data(&g, argv[1]))
 		return (1);
 	render(&g);
-	mlx_loop(g.mlx);
+	mlx_loop(&g->mlx);
 	free_data(&g);
 	return (0);
 }
