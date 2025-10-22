@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 18:32:54 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/22 18:52:21 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ void	move_forward(t_data *g);
 void	move_backward(t_data *g);
 void	move_left(t_data *g);
 void	move_right(t_data *g);
+
+// ENENTS_ADD
 void	turn_right(t_data *g);
 void	turn_left(t_data *g);
 

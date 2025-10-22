@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 17:05:01 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/13 08:56:26 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:57:42 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ void	check_map_valid_char(t_data *cb3d)
 		{
 			if (!ft_strchr("EWNS10", head->str[i]) && !ft_isspace(head->str[i]))
 				print_err("Wrong character in map", cb3d);
-			if (head->str[i] == ' ')
-				head->str[i] = '2';
 			if (head->str[i] == '0' && !check_pos(head, priv, i, "EWNS10"))
 				print_err("Wall or floor is not correct", cb3d);
 			if (ft_strchr("EWNS", head->str[i]))
@@ -101,33 +99,3 @@ void	check_map_valid_char(t_data *cb3d)
 	if (!cb3d->player.player_found)
 		print_err("Player not found", cb3d);
 }
-
-/*
-int	check_pos(t_map *map, t_map *priv, int pos, char *set)
-{
-	if ((!map->str[pos - 1] || !ft_strchr(set, map->str[pos - 1]))
-		|| !map->str[pos + 1] || !ft_strchr(set, map->str[pos + 1])
-		|| !priv || !ft_strchr(set, priv->str[pos])
-		|| !map->next || !map->next->str[pos]
-		|| !ft_strchr(set, map->next->str[pos]))
-		return (0);
-	return (1);
-}
-
-void	check_player_pos(t_data *cb3d, t_map *head, t_map *priv, int pos)
-{
-	int	c;
-
-	c = 0;
-	if (++c != 1)
-		print_err("Too many players", cb3d);
-	else
-	{
-		cb3d->player.orient = head->str[pos];
-		cb3d->player.x = pos;
-		cb3d->player.y = head->index;
-	}
-	if (!check_pos(head, priv, pos, "10"))
-		print_err("Not correct player start position", cb3d);
-}
-*/
