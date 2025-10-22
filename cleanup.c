@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:10:28 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/22 16:51:15 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	free_config(t_data *g)
 		dir++;
 	}
 }
-
 
 void	free_data(t_data *g)
 {

@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:53:31 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:38:08 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/22 16:51:00 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	main(int argc, char **argv)
 	render(&g);
 	mlx_hook(g.win, 17, 0, &closewin, &g);
 	mlx_hook(g.win, KeyPress, KeyPressMask, &handlevent, &g);
-	//mlx_loop_hook(g.mlx, &render, &g);
 	mlx_loop(g.mlx);
 	free_data(&g);
 	return (0);

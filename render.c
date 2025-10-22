@@ -6,7 +6,7 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:37:17 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/22 16:50:48 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,5 @@ int	render(t_data	*g)
 		x++;
 	}
 	mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
-	return(0);
+	return (0);
 }

@@ -6,12 +6,12 @@
 /*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:08:07 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/22 16:49:48 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
- 
+
 int	empty_line(char *line)
 {
 	while (*line)
