@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 08:25:45 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 09:33:15 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:08:07 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ int	parse_file(t_data *g)
 		return (printf("Error\nOpen file\n"), free_data(g), 1);
 	if (parse_config(g, fd))
 		return (close(fd), free_data(g), 1);
-	printf_config(&g->c);
 	parse_map(g, fd);
-	print_map(g->map);
 	close(fd);
 	return (0);
 }

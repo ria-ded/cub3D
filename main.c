@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:53:31 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 13:36:00 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:38:08 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+static int	closewin(t_data *g)
+{
+	if (g && g->mlx)
+		mlx_loop_end(g->mlx);
+	return (0);
+}
+
+static int	handlevent(int keycode, t_data *g)
+{
+	if (keycode == KEY_ESC)
+		closewin(g);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -23,7 +37,10 @@ int	main(int argc, char **argv)
 	if (init_data(&g, argv[1]))
 		return (1);
 	render(&g);
-	mlx_loop(&g->mlx);
+	mlx_hook(g.win, 17, 0, &closewin, &g);
+	mlx_hook(g.win, KeyPress, KeyPressMask, &handlevent, &g);
+	//mlx_loop_hook(g.mlx, &render, &g);
+	mlx_loop(g.mlx);
 	free_data(&g);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 15:49:41 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:37:32 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include "libft.h"
+# include <X11/X.h>
 
 # define HEIGHT 900
 # define WIDTH 1200
+
+# define KEY_ESC 65307
 
 # define NO 0
 # define SO 1
@@ -166,7 +169,7 @@ void	init_ray(t_ray *r, t_player *p);
 bool	hit_wall(t_ray *r, char **map);
 bool	calc_dist(t_ray *r, t_player *p);
 int		wall_dir(t_ray *r);
-void	render(t_data	*g);
+int		render(t_data	*g);
 
 // CLEANUP
 void	del(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 20:07:15 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 11:01:09 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:44:49 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	set_texture(t_config *config, int dir, char *val)
 	trimmed = ft_strtrim(val, " \t\r\n\v\f");
 	if (!trimmed)
 		return (printf("Error\nStrtrim\n"), 1);
-	if (!validate_format(trimmed, ".ppm") && !validate_format(trimmed, ".xpm"))
-		return (printf("Error\nWrong file format, try .ppm or .xpm\n"),
+	if (!validate_format(trimmed, ".xpm"))
+		return (printf("Error\nWrong file format try .xpm\n"),
 			free(trimmed), 1);
 	fd = open(trimmed, O_RDONLY);
 	if (fd == -1)

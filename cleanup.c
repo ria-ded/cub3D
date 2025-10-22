@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/21 21:49:14 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:10:28 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	free_data(t_data *g)
 		free(g->file);
 	free_config(g);
 	free_map(&g->map, del);
+	free_arr(g->mapA);
 	if (g->mlx && g->img.img)
 	{
 		mlx_destroy_image(g->mlx, g->img.img);
@@ -92,6 +93,5 @@ void	free_data(t_data *g)
 		mlx_destroy_display(g->mlx);
 		free (g->mlx);
 	}
-
 # endif
 }

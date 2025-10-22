@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 11:23:02 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:37:17 by svolkau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	wall_dir(t_ray *r)
 	return (wall);
 }
 
-void	render(t_data	*g)
+int	render(t_data	*g)
 {
 	int	x;
 
@@ -118,4 +118,5 @@ void	render(t_data	*g)
 		x++;
 	}
 	mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
+	return(0);
 }
