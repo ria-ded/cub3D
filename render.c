@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 21:39:53 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:50:48 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/26 22:03:23 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	render(t_data	*g)
 	{
 		g->ray.camera_x = 2 * x / (double)WIDTH - 1;
 		init_ray(&g->ray, &g->player);
-		if (!hit_wall(&g->ray, g->mapA)
+		if (!hit_wall(&g->ray, g->mapa)
 			|| !calc_dist(&g->ray, &g->player))
 		{
 			x++;

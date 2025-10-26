@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 22:43:22 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:51:15 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/26 22:03:23 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	free_data(t_data *g)
 		free(g->file);
 	free_config(g);
 	free_map(&g->map, del);
-	free_arr(g->mapA);
+	free_arr(g->mapa);
 	if (g->mlx && g->img.img)
 	{
 		mlx_destroy_image(g->mlx, g->img.img);
@@ -86,7 +86,6 @@ void	free_data(t_data *g)
 	if (g->win)
 		mlx_destroy_window(g->mlx, g->win);
 # ifdef __linux__
-
 	if (g->mlx)
 	{
 		mlx_destroy_display(g->mlx);

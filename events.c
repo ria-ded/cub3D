@@ -3,61 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/22 17:56:18 by svolkau           #+#    #+#             */
-/*   Updated: 2025/10/22 18:38:36 by svolkau          ###   ########.fr       */
+/*   Created: 2025/10/26 21:53:00 by mdziadko          #+#    #+#             */
+/*   Updated: 2025/10/26 21:58:48 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	move_forward(t_data *g)
+int	close_win(t_data *g)
 {
-	if ((int)g->mapA[(int)(g->player.pos[Y])]
-			[(int)(g->player.pos[X] + g->player.dir[X] * 0.15)] - 48 != 1)
-		g->player.pos[X] += g->player.dir[X] * 0.15;
-	if ((int)g->mapA[(int)(g->player.pos[Y] + g->player.dir[Y] * 0.15)]
-			[(int)(g->player.pos[X])] - 48 != 1)
-		g->player.pos[Y] += g->player.dir[Y] * 0.15;
+	if (g->has_exited)
+		return (0);
+	g->has_exited = 1;
+	free_data(g);
+	exit (EXIT_SUCCESS);
 }
 
-void	move_backward(t_data *g)
+int	handle_keys(int keycode, t_data *g)
 {
-	if ((int)g->mapA[(int)(g->player.pos[Y])]
-			[(int)(g->player.pos[X] - g->player.dir[X] * 0.15)] - 48 != 1)
-		g->player.pos[X] -= g->player.dir[X] * 0.15;
-	if ((int)g->mapA[(int)(g->player.pos[Y] - g->player.dir[Y] * 0.15)]
-			[(int)(g->player.pos[X])] - 48 != 1)
-		g->player.pos[Y] -= g->player.dir[Y] * 0.15;
+	if (keycode == KEY_ESC)
+		close_win(g);
+	if (keycode == KEY_W)
+		move_forward(g);
+	if (keycode == KEY_S)
+		move_backward(g);
+	if (keycode == KEY_A)
+		move_left(g);
+	if (keycode == KEY_D)
+		move_right(g);
+	if (keycode == KEY_LEFT)
+		turn_left(g);
+	if (keycode == KEY_RIGHT)
+		turn_right(g);
+	render(g);
+	return (0);
 }
 
-void	move_right(t_data *g)
+void	handle_events(t_data *g)
 {
-	float	dir_x;
-	float	dir_y;
-
-	dir_x = g->player.dir[Y];
-	dir_y = -g->player.dir[X];
-	if ((int)g->mapA[(int)(g->player.pos[Y])]
-			[(int)(g->player.pos[X] + dir_x * 0.15)] - 48 != 1)
-		g->player.pos[X] += dir_x * 0.15;
-	if ((int)g->mapA[(int)(g->player.pos[Y] + dir_y * 0.15)]
-			[(int)(g->player.pos[X])] - 48 != 1)
-		g->player.pos[Y] += dir_y * 0.15;
-}
-
-void	move_left(t_data *g)
-{
-	float	dir_x;
-	float	dir_y;
-
-	dir_x = g->player.dir[Y];
-	dir_y = -g->player.dir[X];
-	if ((int)g->mapA[(int)(g->player.pos[Y])]
-			[(int)(g->player.pos[X] - dir_x * 0.15)] - 48 != 1)
-		g->player.pos[X] -= dir_x * 0.15;
-	if ((int)g->mapA[(int)(g->player.pos[Y] - dir_y * 0.15)]
-			[(int)(g->player.pos[X])] - 48 != 1)
-		g->player.pos[Y] -= dir_y * 0.15;
+	mlx_hook(g->win, 17, 0, close_win, g);
+	mlx_hook(g->win, 2, 1L << 0, handle_keys, g);
+	mlx_loop(g->mlx);
 }

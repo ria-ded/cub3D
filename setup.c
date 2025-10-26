@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 00:43:44 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 11:04:35 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/26 22:03:23 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	setup_game(t_data *g)
 {
-	g->mapA = map_to_arr(g->map);
-	if (!g->mapA)
+	g->mapa = map_to_arr(g->map);
+	if (!g->mapa)
 		print_err("Map to arr", g);
 	g->player.pos[X] = (double)g->player.x + 0.5;
 	g->player.pos[Y] = (double)g->player.y + 0.5;
