@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svolkau <gvardovski@icloud.com>            +#+  +:+       +#+        */
+/*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 20:47:36 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/22 16:52:16 by svolkau          ###   ########.fr       */
+/*   Updated: 2025/10/26 22:03:23 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,28 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include "libft.h"
-# include <X11/X.h>
+
+# ifdef __linux__
+#  include <X11/X.h>
+#  define KEY_ESC 65307
+#  define KEY_LEFT 65361
+#  define KEY_RIGHT 65363
+#  define KEY_A 97
+#  define KEY_D 100
+#  define KEY_W 119
+#  define KEY_S 115
+# else
+#  define KEY_ESC 53
+#  define KEY_LEFT 123
+#  define KEY_RIGHT 124
+#  define KEY_A 0
+#  define KEY_D 2
+#  define KEY_W 13
+#  define KEY_S 1
+# endif
 
 # define HEIGHT 900
 # define WIDTH 1200
-
-# define KEY_ESC 65307
 
 # define NO 0
 # define SO 1
@@ -99,9 +115,10 @@ typedef struct s_data
 	t_map		*map;
 	t_player	player;
 	t_ray		ray;
-	char		**mapA;
+	char		**mapa;
 	t_config	c;
 	char		*file;
+	int			has_exited;
 }				t_data;
 
 // INIT
@@ -156,7 +173,20 @@ void	set_plane(t_player *p);
 void	set_dir(t_player *p);
 void	load_texture(t_data *g);
 
-// ENENTS
+// EVENTS
+int		close_win(t_data *g);
+int		handle_keys(int keycode, t_data *g);
+void	handle_events(t_data *g);
+
+// MOVE
+void	move_forward(t_data *g);
+void	move_backward(t_data *g);
+void	move_left(t_data *g);
+void	move_right(t_data *g);
+
+// ROTATION
+void	turn_right(t_data *g);
+void	turn_left(t_data *g);
 
 // DRAW
 void	draw_line(t_data *g, int dir, int screen_x);
