@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:27:55 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/10 17:18:00 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/27 16:38:42 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 
-# ifndef BUFFER_SIZE 
+# ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
 

@@ -6,7 +6,7 @@
 /*   By: mdziadko <mdziadko@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:41:35 by mdziadko          #+#    #+#             */
-/*   Updated: 2025/10/10 17:17:44 by mdziadko         ###   ########.fr       */
+/*   Updated: 2025/10/27 16:38:10 by mdziadko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,18 +148,3 @@ char	*get_next_line(int fd)
 		return (free(res), NULL);
 	return (res);
 }
-
-// int main()
-// {
-// 	int		fd = open("test.txt", O_RDONLY);
-// 	char	*line;
-
-// 	if (fd == -1)
-// 		return (1);
-// 	while ((line = gnl(fd)))
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// }
